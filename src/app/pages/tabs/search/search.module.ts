@@ -17,6 +17,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     SearchPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [SearchPage]
+  declarations: [
+    SearchPage
+  ]
 })
 export class SearchPageModule {}

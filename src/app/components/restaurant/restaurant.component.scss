@@ -1,25 +1,25 @@
-ion-item {
-    font-size: 0.8rem;
-    ion-thumbnail {
-        height: 16vh;
-        width: 25vw;
-        img {
-            border-radius: 5px;
-            height: 100%;
-            width: 100%;
-        }
+ion-card{
+    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    margin: 1.25rem .5rem;
+    img{
+        position: absolute;
+        z-index: 2;
     }
-    h4 {
-        font-size: 1rem;
-        // font-weight: bold;
+    &-header{
+        max-height: 48%;
+        padding: .5rem .8rem;
+        z-index: 10;
+        background-color: #b51943cf;
     }
-}
-.distance {
-    font-size: 0.8rem;
-    padding-top: 0.2vh;
-}
+    &-title {
+        color: white;
+    }
+    &-subtitle{
+        color: #e8e8e8;
+    }
 
-.pStyle {
-    padding-bottom: 0.5vh;
-    font-size: 0.82rem !important;
 }

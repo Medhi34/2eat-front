@@ -1,27 +1,25 @@
-import { LoadingRestaurantComponent } from './loading-restaurant/loading-restaurant.component';
-import { IonicModule } from '@ionic/angular';
-import { RestaurantComponent } from './restaurant/restaurant.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmptyScreenComponent } from './empty-screen/empty-screen.component';
+import { CartButtonsComponent } from './cart-buttons/cart-buttons.component';
+import { IonicModule } from '@ionic/angular';
+import { RestaurantComponent } from './restaurant/restaurant.component';
+import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
   declarations: [
-    RestaurantComponent,
-    LoadingRestaurantComponent,
-    EmptyScreenComponent
+    CartButtonsComponent,
+    RestaurantComponent
   ],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    RouterModule
   ],
   exports: [
-    RestaurantComponent,
-    LoadingRestaurantComponent,
-    EmptyScreenComponent
-  ],
-  entryComponents: []
+    CartButtonsComponent,
+    RestaurantComponent
+  ]
 })
 export class ComponentsModule { }
