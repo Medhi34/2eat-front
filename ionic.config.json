@@ -1,7 +1,5 @@
 {
-  "name": "swiggyCloneApp",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "2eat-front-new",
+  "integrations": {},
   "type": "angular"
 }

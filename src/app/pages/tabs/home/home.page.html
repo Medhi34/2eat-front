@@ -1,32 +1,54 @@
-<ion-header>
-  <ion-toolbar mode="md">
-    <ion-title color="dark">
-      <span>Home</span>
-      <ion-icon color="dark" name="chevron-down-outline"></ion-icon>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button menu="main-content"></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <app-cart-buttons></app-cart-buttons>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
-  <div *ngIf="isLoading"><ion-skeleton-text animated style="height: 25vh;"></ion-skeleton-text></div>
-  <app-loading-restaurant *ngIf="isLoading"></app-loading-restaurant>
-  
-  <app-banner *ngIf="!isLoading" [bannerImages]="banners"></app-banner>
-
-  <ion-list *ngIf="!isLoading">
-    <ion-list-header class="ion-margin-bottom">
+  <div class="container">
+    <ion-item lines="none">
+      <ion-avatar slot="end" [routerLink]="['/login']">
+        <img alt="Silhouette of a person's head" src="/assets/icon/avatar.svg" />
+      </ion-avatar>
       <ion-label>
-        <h4>Restaurant</h4>
-        <p>Decouvrez Des Gouts Uniques Loin De Chez </p>
+        <h4>Hey</h4>
+        <h2>Connecte-toi !</h2>
       </ion-label>
-    </ion-list-header>
-    <ion-item-group *ngIf="restaurants?.length > 0">
-      <app-restaurant 
-        *ngFor="let restaurant of restaurants" 
-        [restaurant]="restaurant"
-        [routerLink]="['/', 'tabs', 'restaurants', restaurant.uid]"></app-restaurant>
-      </ion-item-group>
-  </ion-list>
+    </ion-item>
+
+    <ion-card class="hero">
+      <ion-card-header>
+        <ion-card-title>
+          <h2>Devenez contributeur</h2>
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>Enregistrer un boins coins où manger,
+          et bénéficier de bon de réduction pour vos futurs commandes.</p>
+      </ion-card-content>
+    
+      <ion-button color="dark" shape="round">Contribuer</ion-button>
+    </ion-card>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label>
+          <h2>Parcourir les restaurants</h2>
+        </ion-label>
+        <ion-button>Voir tout</ion-button>
+      </ion-list-header>
+      <app-restaurant></app-restaurant>
+      <app-restaurant></app-restaurant>
+      <app-restaurant></app-restaurant>
+      <app-restaurant></app-restaurant>
+    </ion-list>
+
+  </div>
 
 </ion-content>

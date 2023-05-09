@@ -1,13 +1,16 @@
-ion-header {
-    ion-icon {
-        font-size: 1rem;
-    }    
-}
-ion-label {
-    h4 {
-        font-size: 1.2rem;
-    }    
-    p {
-        font-size: 0.7rem;
+ion-card.hero{
+    background: url('../../../../assets/img/banner-food2.jpg');
+    background-position: center left;
+    background-size: cover;
+    ion-button{
+        margin: .4rem;
+    }
+    p{
+        text-align: justify;
+        font-weight: 500;
+        font-size: medium;
+    }
+    h2{
+        margin: .2rem 0;
     }
 }
