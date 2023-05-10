@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Restaurant } from 'src/app/models/Restaurant';
 
 @Component({
   selector: 'app-restaurant',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestaurantComponent  implements OnInit {
 
+  @Input() restaurant!:Restaurant;
+  @Input() distance!:number;
   constructor() { }
 
   ngOnInit() {}

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Meal } from 'src/app/models/Meal';
 
 @Component({
   selector: 'app-meal',
@@ -7,8 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MealComponent  implements OnInit {
 
+  @Input() meal!:Meal;
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
+
+  makeFavourite(){
+    this.meal.isFavourite = this.meal.isFavourite ? false : true;
+  }
 
 }

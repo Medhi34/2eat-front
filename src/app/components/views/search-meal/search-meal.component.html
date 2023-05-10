@@ -1,0 +1,5 @@
+<div class="container">
+  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000"></ion-searchbar>
+
+  <app-meal *ngFor="let meal of results" [meal]="meal"></app-meal>
+</div>

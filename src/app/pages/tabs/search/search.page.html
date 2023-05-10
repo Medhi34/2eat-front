@@ -11,13 +11,19 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-segment [scrollable]="true" value="all">
-    <ion-segment-button value="all">
-      <ion-label>Tous</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="restaurant">
-      <ion-label>Restaurant</ion-label>
+  <ion-segment [scrollable]="true" value="{{selectedSegment}}" mode="ios">
+    <ion-segment-button *ngFor="let name of ['Tous', 'Restaurant']" value="{{name}}" (click)="segmentChosen(name)">
+      <ion-label>{{name}}</ion-label>
     </ion-segment-button>
   </ion-segment>
+
+  <span *ngIf="selectedSegment === 'Tous' then meal else restaurant"></span>
+
+  <ng-template #meal>
+    <app-search-meal ></app-search-meal>
+  </ng-template>
+  <ng-template #restaurant>
+    <app-search-restaurant></app-search-restaurant>
+  </ng-template>  
 
 </ion-content>

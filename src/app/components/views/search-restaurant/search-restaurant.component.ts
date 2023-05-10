@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonAccordionGroup } from '@ionic/angular';
 import { Image } from 'src/app/models/Image';
 import { Restaurant } from 'src/app/models/Restaurant';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-search-restaurant',
+  templateUrl: './search-restaurant.component.html',
+  styleUrls: ['./search-restaurant.component.scss'],
 })
-export class HomePage implements OnInit {
+export class SearchRestaurantComponent  implements OnInit {
 
   images:Map<string, Image> = new Map();
   restaurants:Restaurant[] = [];
+  results:Restaurant[] = [];
+
+  advancedSearchSelected:string = "";
+
   constructor() { }
 
   ngOnInit() {
@@ -88,8 +93,17 @@ export class HomePage implements OnInit {
         appreciations: []
       }
     ];
+    this.results = this.restaurants;
   }
 
+  selectedSearch(event:any){
+    this.advancedSearchSelected = event.target.value;
+  }
+
+  handleInput(event:any) {
+    const query = event.target.value.toLowerCase();
+    this.results = this.restaurants.filter((d) => d.name.toLowerCase().indexOf(query) > -1);
+  }
 
 
 }

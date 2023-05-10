@@ -1,0 +1,33 @@
+<div class="container">
+  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000"></ion-searchbar>
+
+  <ion-accordion-group>
+    <ion-accordion value="filter">
+      <ion-item slot="header" color="light">
+        <ion-label>Recherche avancée</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <ion-radio-group name="advancedSearch">
+          <ion-item>
+            <ion-radio value="category" (click)="selectedSearch($event)">Rechercher par catégorie</ion-radio>
+          </ion-item>
+          <ion-item *ngIf="advancedSearchSelected === 'category'">
+            <ion-select value="category" placeholder="Selectionnez">
+              <ion-select-option value="fast-food">Fast-Food</ion-select-option>
+              <ion-select-option value="restaurant classique">Restaurant Classique</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-radio value="city" (click)="selectedSearch($event)">Rechercher par la ville</ion-radio>
+          </ion-item>
+          <ion-item *ngIf="advancedSearchSelected === 'city'">
+            <ion-input type="text" placeholder="Entrez la ville"></ion-input>
+          </ion-item>
+        </ion-radio-group>
+        <ion-button expand="block" fill="clear" shape="round">Appliquer</ion-button>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+  <app-restaurant *ngFor="let restaurant of results" [restaurant]="restaurant" [distance]="2"></app-restaurant>
+</div>
