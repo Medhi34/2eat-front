@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
       },
       {
+        path: 'search/:type',
+        loadChildren: () => import('./search/search.module').then( m => m.SearchPageModule)
+      },
+      {
         path: 'settings',
         loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
       },

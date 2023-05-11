@@ -15,7 +15,7 @@
       <ion-avatar slot="end" [routerLink]="['/login']">
         <img alt="Silhouette of a person's head" src="/assets/icon/avatar.svg" />
       </ion-avatar>
-      <ion-label>
+      <ion-label id="userGreating">
         <h4>Hey</h4>
         <h2>Connecte-toi !</h2>
       </ion-label>
@@ -41,12 +41,9 @@
         <ion-label>
           <h2>Parcourir les restaurants</h2>
         </ion-label>
-        <ion-button>Voir tout</ion-button>
+        <ion-button [routerLink]="['/tabs/search', 'Restaurant']">Voir tout</ion-button>
       </ion-list-header>
-      <app-restaurant></app-restaurant>
-      <app-restaurant></app-restaurant>
-      <app-restaurant></app-restaurant>
-      <app-restaurant></app-restaurant>
+      <app-restaurant *ngFor="let restaurant of restaurants" [restaurant]="restaurant" [distance]="2"></app-restaurant>
     </ion-list>
 
   </div>

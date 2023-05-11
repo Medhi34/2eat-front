@@ -4,22 +4,31 @@ import { CartButtonsComponent } from './cart-buttons/cart-buttons.component';
 import { IonicModule } from '@ionic/angular';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { RouterModule } from '@angular/router';
+import { MealComponent } from './meal/meal.component';
+import { SearchMealComponent } from './views/search-meal/search-meal.component';
+import { SearchRestaurantComponent } from './views/search-restaurant/search-restaurant.component';
 
 
 
 @NgModule({
   declarations: [
     CartButtonsComponent,
-    RestaurantComponent
+    RestaurantComponent,
+    MealComponent,
+    SearchMealComponent,
+    SearchRestaurantComponent,
   ],
   imports: [
     CommonModule,
     IonicModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     CartButtonsComponent,
-    RestaurantComponent
+    RestaurantComponent,
+    MealComponent,
+    SearchMealComponent,
+    SearchRestaurantComponent,
   ]
 })
 export class ComponentsModule { }

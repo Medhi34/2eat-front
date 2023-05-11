@@ -5,14 +5,15 @@ import { Meal } from "./Meal";
 import { User } from "./User";
 
 export interface Restaurant {
-    _id: String,
-    name: String,
-    phone: Number,
-    user: User,
+    _id: string,
+    name: string,
+    phone: number,
+    user: User | string,
     date_save: Date,
-    localisation: Localisation,
-    categories: [String],
-    images: Map<String, Image>,
-    meals: [Meal],
-    appreciations: [Appreciation]
+    localisation: Localisation | null,
+    categories: string[],
+    nbVotes: number,
+    images: Map<string, Image> | null,
+    meals: Meal[] | [] | string[],
+    appreciations: Appreciation[] | [] | string[]
 }

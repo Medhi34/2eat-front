@@ -1,8 +1,8 @@
 export interface Localisation {
-    longitude: Number,
-    latitude: Number,
-    country: String,
-    city: String,
-    area: String,
-    _id: String
+    longitude: number,
+    latitude: number,
+    country: string,
+    city: string,
+    area: string,
+    _id: string
 }
