@@ -1,0 +1,127 @@
+.carousel{
+    width: 100%;
+    height: 30vh;
+    position: relative;
+    button{
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: .5rem;
+        border-radius: 20rem;
+        position: absolute;
+        bottom: .5rem;
+        right: .8rem;
+        z-index: 5;
+        background-color: white;
+        ion-icon{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+swiper-container{
+    width: 100%;
+    height: 100%;
+    background-color: #f1f1f1;
+
+    swiper-slide{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 400ms all ease-in-out;
+        ion-card{
+            margin: 0;
+            width: 95%;
+            height: 90%;
+            box-shadow: none;
+            img{
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                transform: scale(1.1, 1.1) rotate(3deg);
+                transition: 600ms all ease-in-out;
+            }
+        }  
+    }
+    
+    .swiper-slide-active{
+        transform: scale(1.05, 1.05);
+        ion-card{
+            img{
+                transform: scale(1, 1);
+            }
+        }
+    }
+}
+
+
+
+.container {
+    height: calc(100vh - (30vh + 10vh + 10vh ));
+    box-sizing: border-box;
+    overflow: auto;
+    ion-col{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+footer{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    ion-button{
+        width: 90%;
+        text-transform: none;
+    }
+}
+
+ion-modal {
+    --border-radius: 16px;
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    ion-toolbar {
+    --background: rgb(14 116 144);
+    --color: white;
+    }
+
+    ion-item{
+        margin: 1rem 0;
+    }
+
+    ion-button{
+        width: 100%;
+        text-transform: none;
+    }
+
+    ion-grid{
+        border: 1px solid #cacaca;
+        width: 60%;
+        padding: 0;
+        border-radius: 2rem;
+        ion-col{
+            padding: 0;
+            button{
+                width: 100%;
+                height: 100%;
+                &.left{
+                    border-top-left-radius: 2rem;
+                    border-bottom-left-radius: 2rem;
+                }
+                &.right{
+                    border-top-right-radius: 2rem;
+                    border-bottom-right-radius: 2rem;
+                }
+            }
+            ion-input{
+                text-align: center;
+            }
+        }
+    }
+}
+  
+  

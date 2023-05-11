@@ -2,12 +2,12 @@ import { Meal } from "./Meal";
 import { User } from "./User";
 
 export interface Order {
-    _id: String,
-    user: User,
-    meal: Meal,
+    _id: string,
+    user: User | string,
+    meal: Meal | string,
     date: Date,
-    quantity: Number,
+    quantity: number,
     hot: Boolean,
     spiced: Boolean,
-    others: String
+    others: string
 }

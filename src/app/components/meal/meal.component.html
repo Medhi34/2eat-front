@@ -1,5 +1,5 @@
-<ion-card [routerLink]="['/meal-details', meal._id]">
-  <img alt="Photo du repas" src="{{meal.images.values().next().value.url}}" />
+<ion-card>
+  <img [routerLink]="['/meal-details', meal._id]" alt="Photo du repas" src="{{meal.images.values().next().value.url}}" />
   <ion-card-content>
     <ion-grid fixed>
       <ion-row>

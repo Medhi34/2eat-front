@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Image } from 'src/app/models/Image';
 import { Meal } from 'src/app/models/Meal';
 
@@ -10,7 +10,7 @@ import { Meal } from 'src/app/models/Meal';
 export class SearchMealComponent  implements OnInit {
 
   images:Map<string, Image> = new Map();
-  meals:Meal[] = [];
+  @Input() meals:Meal[] = [];
   results:Meal[] = [];
 
   constructor() { }
