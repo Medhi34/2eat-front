@@ -1,18 +1,7 @@
-ion-card.hero{
-    background: url('../../../../assets/img/banner-food2.jpg');
-    background-position: center left;
+.banner{
+    background-image: url('../../../../assets/img/pngegg\ \(1\).png');
     background-size: cover;
-    ion-button{
-        margin: .4rem;
-    }
-    p{
-        text-align: justify;
-        font-weight: 500;
-        font-size: medium;
-    }
-    h2{
-        margin: .2rem 0;
-    }
+    background-position: center;
 }
 
 #userGreating{

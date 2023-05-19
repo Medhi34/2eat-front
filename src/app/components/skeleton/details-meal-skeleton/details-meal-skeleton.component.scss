@@ -1,0 +1,18 @@
+.carousel{
+    width: 100%;
+    height: 30vh;
+}
+
+.container {
+    height: calc(100vh - 40vh);
+    box-sizing: border-box;
+    overflow: auto;
+    ion-col{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    ion-skeleton-text{
+        min-height: 1rem;
+    }
+}

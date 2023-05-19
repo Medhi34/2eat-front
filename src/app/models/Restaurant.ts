@@ -10,10 +10,10 @@ export interface Restaurant {
     phone: number,
     user: User | string,
     date_save: Date,
-    localisation: Localisation | null,
+    localisation: Localisation,
     categories: string[],
     nbVotes: number,
-    images: Map<string, Image> | null,
+    images: Map<string, Image>,
     meals: Meal[] | [] | string[],
     appreciations: Appreciation[] | [] | string[]
 }

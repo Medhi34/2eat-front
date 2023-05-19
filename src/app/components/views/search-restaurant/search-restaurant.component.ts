@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { IonAccordionGroup } from '@ionic/angular';
 import { Image } from 'src/app/models/Image';
 import { Restaurant } from 'src/app/models/Restaurant';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-search-restaurant',
@@ -10,90 +11,23 @@ import { Restaurant } from 'src/app/models/Restaurant';
 })
 export class SearchRestaurantComponent  implements OnInit {
 
-  images:Map<string, Image> = new Map();
-  restaurants:Restaurant[] = [];
+  isDone:boolean = false;
+  restaurants!:Restaurant[];
   results:Restaurant[] = [];
+
+  @Input("category")category!:string;
+  @Input("city")city!:string;
 
   advancedSearchSelected:string = "";
 
-  constructor() { }
+  constructor(private api:ApiService) { }
 
   ngOnInit() {
-    this.images.set("img01", {
-      url:"/assets/img/card-media.png",
-      isActive: true,
-      _id: ""
-    });
-    this.images.set("img02", {
-      url:"/assets/img/card-media.png",
-      isActive: true,
-      _id: ""
-    });
-
-    let localisation = {
-      longitude: 3,
-      latitude: 4,
-      country: "Cameroun",
-      city: "Yaoundé",
-      area: "Nkolbisson",
-      _id: "locate01"
-    }
-
-    this.restaurants = [
-      {
-        _id: "restau01",
-        name: "Restaurant Chez Martin",
-        phone: 699090009,
-        user: "user01",
-        date_save: new Date(),
-        localisation: localisation,
-        categories: ['Street-food', 'Caféteria'],
-        nbVotes: 5,
-        images: this.images,
-        meals: [],
-        appreciations: []
-      },
-      {
-        _id: "restau02",
-        name: "Restaurant Chez Franck",
-        phone: 699090009,
-        user: "user02",
-        date_save: new Date(),
-        localisation: localisation,
-        categories: ['Street-food', 'Caféteria'],
-        nbVotes: 10,
-        images: this.images,
-        meals: [],
-        appreciations: []
-      },
-      {
-        _id: "restau03",
-        name: "The Famous",
-        phone: 699090009,
-        user: "user01",
-        date_save: new Date(),
-        localisation: localisation,
-        categories: ['Restaurant classique'],
-        nbVotes: 255,
-        images: this.images,
-        meals: [],
-        appreciations: []
-      },
-      {
-        _id: "restau04",
-        name: "Petite faim",
-        phone: 699090009,
-        user: "user04",
-        date_save: new Date(),
-        localisation: localisation,
-        categories: ['Fast-food'],
-        nbVotes: 501,
-        images: this.images,
-        meals: [],
-        appreciations: []
-      }
-    ];
-    this.results = this.restaurants;
+    this.api.getAllRestaurants().subscribe(vals => {
+      this.restaurants = vals
+      this.results = this.restaurants;
+      this.isDone = true;
+    })
   }
 
   selectedSearch(event:any){
@@ -103,6 +37,28 @@ export class SearchRestaurantComponent  implements OnInit {
   handleInput(event:any) {
     const query = event.target.value.toLowerCase();
     this.results = this.restaurants.filter((d) => d.name.toLowerCase().indexOf(query) > -1);
+  }
+
+  applyFilter(){
+    this.isDone = false;
+    switch(this.advancedSearchSelected){
+      case 'category': {
+        this.api.getRestaurantsByCategoy(this.category).subscribe(vals => {
+          this.restaurants = vals
+          this.results = this.restaurants;
+          this.isDone = true;
+        })
+        break;
+      }
+      case 'city': {
+        this.api.getRestaurantsByCity(this.city).subscribe(vals => {
+          this.restaurants = vals
+          this.results = this.restaurants;
+          this.isDone = true;
+        })
+        break;
+      }
+    }
   }
 
 

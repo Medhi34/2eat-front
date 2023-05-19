@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { Image } from 'src/app/models/Image';
 import { Meal } from 'src/app/models/Meal';
 import { Order } from 'src/app/models/Order';
+import { ApiService } from 'src/app/services/api.service';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-meal-details',
@@ -10,52 +13,43 @@ import { Order } from 'src/app/models/Order';
   styleUrls: ['./meal-details.page.scss'],
 })
 export class MealDetailsPage implements OnInit {
-
-  images:Map<string, Image> = new Map();
+  isDone:boolean = false;
   meal!:Meal;
   @ViewChild(IonModal) modal!: IonModal;
   order!:Order;
 
-  constructor() { }
+  constructor(private api:ApiService, private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this.images.set("img01", {
-      url:"/assets/img/card-media.png",
-      isActive: true,
-      _id: ""
-    });
-    this.images.set("img02", {
-      url:"/assets/img/card-media.png",
-      isActive: true,
-      _id: ""
-    });
-    this.images.set("img03", {
-      url:"/assets/img/card-media.png",
-      isActive: true,
-      _id: ""
-    });
-    this.meal = {
-      _id: "test",
-      name: "Ndolè",
-      images: this.images,
-      accompagnements: ["Riz", "Miondo", "Frites de plaintain"],
-      price: 2000,
-      restaurant: null,
-      isFavourite: true
-    }
-    this.order = {
-      _id: "order",
-      user: "user01",
-      meal: this.meal,
-      date: new Date(),
-      quantity: 1,
-      hot: true,
-      spiced: false,
-      others: ""
-    }
+    const id = this.route.snapshot.paramMap.get('id') || "";
+    this.api.getMealById(id).subscribe((val:any) => {
+      this.meal = {
+        ...val,
+        images: new Map<string, Image>(Object.entries(val.images))
+      }
+      this.order = {
+        _id: "order",
+        user: "",
+        meal: this.meal,
+        date: new Date(),
+        quantity: 1,
+        hot: true,
+        spiced: false,
+        others: ""
+      }
+      this.isDone = true;
+    })
   }
 
   makeFavourite(){
+    // if(this.meal.isFavourite){
+    //   this.fileApi.removeFavourite(this.meal._id)
+    //   .then(() => this.meal.isFavourite = false)
+    // }else{
+    //   this.fileApi.makeFavourite(this.meal._id)
+    //   .then(() => this.meal.isFavourite = true)
+    // }
+    
     this.meal.isFavourite = this.meal.isFavourite ? false : true;
   }
 

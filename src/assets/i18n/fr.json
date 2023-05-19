@@ -1,0 +1,35 @@
+{
+    "SETTINGS": {
+        "TITLE": "Paramètres",
+        "SECTION_1": {
+            "TITLE": "Paramètre général",
+            "ITEM_1": {
+                "PLACEHOLDER": "Selectionnez la langue",
+                "LABEL": "Changer la langue",
+                "OPTIONS_1": "Français",
+                "OPTIONS_2": "Anglais"
+            },
+            "ITEM_2": {
+                "LABEL": "Mode sombre"
+            }
+        },
+        "SECTION_2": {
+            "TITLE": "Paramètre de sécurité",
+            "ITEM_1": {
+                "LABEL": "Changer mon adresse mail"
+            },
+            "ITEM_2": {
+                "LABEL": "Changer mon mot de passe"
+            },
+            "ITEM_3": {
+                "LABEL": "Supprimer mon compte"
+            }
+        },
+        "SECTION_3": {
+            "TITLE": "Aide",
+            "ITEM_1": {
+                "LABEL": "Envoyez un rapport"
+            }
+        }
+    }
+}

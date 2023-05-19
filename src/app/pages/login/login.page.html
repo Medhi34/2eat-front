@@ -55,9 +55,10 @@
           </ion-text>
         </ion-item>
         <div class="photo-container">
-          <ion-button color="medium" shape="round">
+          <ion-button (click)="addPhotoToGallery()">
             <ion-icon slot="icon-only" name="camera"></ion-icon>
           </ion-button>
+          <ion-img [src]="photoService.photos[0].webviewPath"></ion-img>
         </div>
         <ion-item lines="none">
           <ion-icon slot="start" name="person"></ion-icon>

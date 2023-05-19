@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
+import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ export class LoginPage implements OnInit {
 
   @ViewChild(IonModal) modal!: IonModal;
 
-  constructor() { }
+  constructor(public photoService:PhotoService) { }
 
   ngOnInit() {
   }
@@ -28,5 +29,9 @@ export class LoginPage implements OnInit {
     // if (ev.detail.role === 'confirm') {
     //   this.message = `Hello, ${ev.detail.data}!`;
     // }
+  }
+
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
   }
 }

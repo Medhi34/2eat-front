@@ -11,65 +11,112 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="map">Maps...</div>
+
+  <span *ngIf="!isDone then skeleton else showRestaurant"></span>
+
+  <ng-template #skeleton>
+    <div class="map">
+      <ion-skeleton-text animated style="height: 100%"></ion-skeleton-text>
+    </div>
 
   <div class="container">
     <div class="votes">
-      <ion-button fill="clear" size="small">
-        <ion-icon slot="start" name="location" color="primary"></ion-icon>
-        XX km
-      </ion-button>
-      <ion-badge color="medium" mode="ios">{{restaurant.nbVotes}} vote(s)</ion-badge>
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
     </div>
 
     <ion-grid fixed>
       <ion-row>
         <ion-col size="8">
           <ion-text>
-            <h2>{{restaurant.name}}</h2>
-            <small>{{restaurant.localisation?.city}}, {{restaurant.localisation?.area}}</small>
+            <h2><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></h2>
+            <small><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></small>
           </ion-text>
         </ion-col>
         <ion-col size="4">
-          <ion-button>
-            <ion-icon slot="icon-only" name="call"></ion-icon>
-          </ion-button>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
-          <ion-button>
-            <ion-icon slot="start" name="restaurant"></ion-icon>
-            Voir le(s) repas
-          </ion-button>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
         </ion-col>
       </ion-row>
     </ion-grid>    
 
     <ion-accordion-group>
       <ion-accordion value="images">
-        <ion-item slot="header" color="light">
-          <ion-label>Photos</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          <swiper-container [slidesPerView]="1" [centeredSlides]="true" [pagination]="true">
-            <swiper-slide *ngFor="let image of restaurant.images | keyvalue">
-              <ion-card>
-                <img src="{{image.value.url}}" alt="Image">
-              </ion-card>
-            </swiper-slide>
-          </swiper-container>
-        </div>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
       </ion-accordion>
       <ion-accordion value="comments">
-        <ion-item slot="header" color="light">
-          <ion-label>Commentaires</ion-label>
-        </ion-item>
-        <div class="ion-padding" slot="content">
-          commentaires...
-        </div>
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
       </ion-accordion>
     </ion-accordion-group>
-    
   </div>
+  </ng-template>
+  
+
+  <ng-template #showRestaurant>
+
+    <capacitor-google-map id="map"></capacitor-google-map>
+
+    <div class="container">
+      <div class="votes">
+        <ion-button fill="clear" size="small">
+          <ion-icon slot="start" name="location" color="primary"></ion-icon>
+          {{distance | number:'1.0-1'}} km
+        </ion-button>
+        <ion-badge color="medium" mode="ios">{{restaurant.nbVotes}} vote(s)</ion-badge>
+      </div>
+
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="8">
+            <ion-text>
+              <h2>{{restaurant.name}}</h2>
+              <small>{{restaurant.localisation.city}}, {{restaurant.localisation.area}}</small>
+            </ion-text>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button (click)="callRestaurant()">
+              <ion-icon slot="icon-only" name="call"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <ion-button>
+              <ion-icon slot="start" name="restaurant"></ion-icon>
+              Voir le(s) repas
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>    
+
+      <ion-accordion-group>
+        <ion-accordion value="images">
+          <ion-item slot="header" color="light">
+            <ion-label>Photos</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <swiper-container [slidesPerView]="1" [centeredSlides]="true" [pagination]="true">
+              <swiper-slide *ngFor="let image of restaurant.images | keyvalue">
+                <ion-card>
+                  <img src="{{image.value.url}}" alt="Image">
+                </ion-card>
+              </swiper-slide>
+            </swiper-container>
+          </div>
+        </ion-accordion>
+        <ion-accordion value="comments">
+          <ion-item slot="header" color="light">
+            <ion-label>Commentaires</ion-label>
+          </ion-item>
+          <div class="ion-padding" slot="content">
+            <app-comments [idRestaurant]="restaurant._id"></app-comments>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+      
+    </div>
+  </ng-template>
 </ion-content>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { register } from 'swiper/element';
 // register Swiper custom elements
 register();
@@ -9,5 +10,8 @@ register();
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(translate: TranslateService) {
+    translate.setDefaultLang("fr");
+    translate.use("fr");
+  }
 }

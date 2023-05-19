@@ -1,11 +1,11 @@
 ion-card{
-    height: 10rem;
+    height: 25vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
-    margin: 1.25rem .5rem;
     img{
+        object-fit: cover;
         width: 100%;
         height: 100%;
         position: absolute;
@@ -16,8 +16,7 @@ ion-card{
     &-content{
         padding: 0;
         z-index: 10;
-        background-color: #b51943cf;
-        color: white;
+        background-color: var(--ion-color-primary-fade);
         ion-grid{
             margin: 0;
             padding: 0;
@@ -29,6 +28,7 @@ ion-card{
     ion-badge{
         font-size: small;
         padding: .5rem;
+        border-radius: .4rem;
     }
     ion-button{
         margin: 0;
