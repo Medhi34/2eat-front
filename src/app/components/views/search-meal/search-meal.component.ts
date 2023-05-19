@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Image } from 'src/app/models/Image';
 import { Meal } from 'src/app/models/Meal';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-search-meal',
@@ -9,62 +10,29 @@ import { Meal } from 'src/app/models/Meal';
 })
 export class SearchMealComponent  implements OnInit {
 
-  images:Map<string, Image> = new Map();
-  @Input() meals:Meal[] = [];
+  meals:Meal[] = [];
   results:Meal[] = [];
+  isDone:boolean = false;
+  @Input() displayedPage!:string; // search / restaurant / favourite
 
-  constructor() { }
+  constructor(private api:ApiService) { }
 
   ngOnInit() {
-    this.images.set("img01", {
-      url:"/assets/img/card-media.png",
-      isActive: true,
-      _id: ""
-    });
-    this.images.set("img02", {
-      url:"/assets/img/card-media.png",
-      isActive: true,
-      _id: ""
-    });
-    this.meals = [
-      {
-        _id: "test01",
-        name: "Eru",
-        images: this.images,
-        accompagnements: ["Water-fufu", "Couscous tapioca"],
-        price: 1500,
-        restaurant: null,
-        isFavourite: true
-      },
-      {
-        _id: "test02",
-        name: "Okok sucré",
-        images: this.images,
-        accompagnements: ["Batôn de manioc", "Manioc"],
-        price: 1000,
-        restaurant: null,
-        isFavourite: false
-      },
-      {
-        _id: "test03",
-        name: "Sauce jaune",
-        images:this.images,
-        accompagnements: ["Taro"],
-        price: 1500,
-        restaurant: null,
-        isFavourite: false
-      },
-      {
-        _id: "test04",
-        name: "Ndolè",
-        images: this.images,
-        accompagnements: ["Riz", "Miondo", "Frites de plaintain"],
-        price: 2000,
-        restaurant: null,
-        isFavourite: true
+    switch(this.displayedPage){
+      case "restaurant": {
+        break;
       }
-    ];
-    this.results = [...this.meals];
+      case "favourite": {
+        break;
+      }
+      default: {
+        this.api.getAllMeals().subscribe(val => {
+          this.meals = val;
+          this.results = this.meals;          
+          this.isDone = true;
+        });
+      }
+    }
   }
 
   handleInput(event:any) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  textLanguage!:any;
+  selectedLanguage!:string
+
+  constructor(private translate: TranslateService) { }
 
   ngOnInit() {
+    this.translate.get('SETTINGS').subscribe((res) => this.textLanguage = res);
+    this.selectedLanguage = this.translate.currentLang.split('language ')[0];
   }
 
   toggleTheme(event:any){
@@ -19,4 +25,10 @@ export class SettingsPage implements OnInit {
       document.body.setAttribute('color-theme', 'light');
     }
   }
+
+  changeLanguage(event:any){
+    this.translate.use(event.target.value);
+    this.translate.get('SETTINGS').subscribe((res) => this.textLanguage = res);
+  }
+
 }

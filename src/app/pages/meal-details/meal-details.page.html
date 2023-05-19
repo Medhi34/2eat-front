@@ -11,107 +11,118 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="carousel">
-    <button (click)="makeFavourite()">
-      <ion-icon slot="icon-only" name="heart" *ngIf="meal.isFavourite"></ion-icon>
-      <ion-icon slot="icon-only" name="heart-outline" *ngIf="!meal.isFavourite"></ion-icon>
-    </button>
-    <swiper-container [slidesPerView]="1.2" [centeredSlides]="true">
-      <swiper-slide *ngFor="let image of meal.images | keyvalue">
-        <ion-card>
-          <img src="{{image.value.url}}" alt="Image">
-        </ion-card>
-      </swiper-slide>
-    </swiper-container>
-  </div>
 
-  <div class="container">
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col size="8">
-          <h2>{{meal.name}}</h2>
-          <small>{{meal.restaurant?.name}}</small>
-        </ion-col>
-        <ion-col size="4">
-          <h3>{{meal.price}} Fcfa</h3>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-text>
-      <h5>Accompagnement(s)</h5>
-    </ion-text>
-    <ion-list>
-      <ion-item *ngFor="let accompagnement of meal.accompagnements">
-        <ion-icon name="arrow-forward-circle" slot="start"></ion-icon>
-        <ion-label>{{accompagnement}}</ion-label>
-      </ion-item>
-    </ion-list>
-  </div>
+  <span *ngIf="!isDone then skeleton else showDetails"></span>
 
-  <footer>
-    <ion-button size="large" shape="round" id="open-modal">
-      Commander
-    </ion-button>
-  </footer>
+  <ng-template #skeleton>
+    <app-details-meal-skeleton></app-details-meal-skeleton>
+  </ng-template>
 
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)" [initialBreakpoint]="0.80" [breakpoints]="[0, 0.80, 1]">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Commande</ion-title>
-          <ion-buttons slot="end">
-          <ion-button (click)="cancel()">
-            <ion-icon slot="icon-only" name="close"></ion-icon>
+  <ng-template #showDetails>
+    <div class="carousel">
+      <button (click)="makeFavourite()">
+        <ion-icon slot="icon-only" name="heart" *ngIf="meal.isFavourite" color="primary"></ion-icon>
+        <ion-icon slot="icon-only" name="heart-outline" *ngIf="!meal.isFavourite" color="primary"></ion-icon>
+      </button>
+      <swiper-container [slidesPerView]="1.2" [centeredSlides]="true">
+        <swiper-slide *ngFor="let image of meal.images | keyvalue">
+          <ion-card>
+            <img src="{{image.value.url}}" alt="Image">
+          </ion-card>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+  
+    <div class="container">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="8">
+            <h2 class="title">{{meal.name}}</h2>
+            <small class="subtitle">{{meal.restaurant.name}}</small>
+          </ion-col>
+          <ion-col size="4">
+            <h3 class="price">{{meal.price}} Fcfa</h3>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-list>
+        <ion-list-header>
+          <ion-label>
+            <h4>Accompagnement(s)</h4>
+          </ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let accompagnement of meal.accompagnements">
+          <ion-icon name="menu" slot="start" size="medium"></ion-icon>
+          <ion-label>{{accompagnement}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+  
+    <footer>
+      <ion-button size="large" shape="round" id="open-modal">
+        Commander
+      </ion-button>
+    </footer>
+  
+    <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)" [initialBreakpoint]="0.80" [breakpoints]="[0, 0.80, 1]">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Commande</ion-title>
+            <ion-buttons slot="end">
+            <ion-button (click)="cancel()">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="4">
+                <button class="left" (click)="addQuantity()">
+                  <ion-icon slot="icon-only" name="add"></ion-icon>
+                </button>
+              </ion-col>
+              <ion-col size="4">
+                <ion-input type="number" labelPlacement="floating" label="" value="{{order.quantity}}"></ion-input>
+              </ion-col>
+              <ion-col size="4">
+                <button class="right" (click)="removeQuantity()">
+                  <ion-icon slot="icon-only" name="remove"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-item>
+            <ion-icon slot="start" name="flame" color="primary"></ion-icon>
+            <ion-checkbox labelPlacement="start" checked="{{order.hot}}">Chaud</ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" src="/assets/icon/chili-icon.svg"></ion-icon>
+            <ion-checkbox labelPlacement="start" checked="{{order.spiced}}">Pimenté</ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="menu"></ion-icon>
+            <ion-select label="Accompagnement" labelPlacement="floating">
+              <ion-select-option *ngFor="let accompagnement of meal.accompagnements" value="{{accompagnement}}">{{accompagnement}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="information-circle"></ion-icon>
+            <ion-textarea label="Plus d'information" labelPlacement="floating" autocapitalize="true" value="{{order.others}}" ></ion-textarea>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-icon name="card" slot="start" color="danger" size="large"></ion-icon>
+            <ion-text color="danger">
+              <h1>Total: {{meal.price * order.quantity}} Fcfa</h1>
+            </ion-text>
+          </ion-item>
+          <ion-button shape="round" (click)="confirm()">
+            Valider
           </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <ion-grid fixed>
-          <ion-row>
-            <ion-col size="4">
-              <button class="left" (click)="addQuantity()">
-                <ion-icon slot="icon-only" name="add"></ion-icon>
-              </button>
-            </ion-col>
-            <ion-col size="4">
-              <ion-input type="number" labelPlacement="floating" label="" value="{{order.quantity}}"></ion-input>
-            </ion-col>
-            <ion-col size="4">
-              <button class="right" (click)="removeQuantity()">
-                <ion-icon slot="icon-only" name="remove"></ion-icon>
-              </button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <ion-item>
-          <ion-icon slot="start" name="flame"></ion-icon>
-          <ion-checkbox labelPlacement="start" checked="{{order.hot}}">Chaud</ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-icon slot="start" name="flame"></ion-icon>
-          <ion-checkbox labelPlacement="start" checked="{{order.spiced}}">Pimenté</ion-checkbox>
-        </ion-item>
-        <ion-item>
-          <ion-icon slot="start" name="attach"></ion-icon>
-          <ion-select label="Accompagnement" labelPlacement="floating">
-            <ion-select-option *ngFor="let accompagnement of meal.accompagnements" value="{{accompagnement}}">{{accompagnement}}</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-icon slot="start" name="information-circle"></ion-icon>
-          <ion-textarea label="Plus d'information" labelPlacement="floating" autocapitalize="true" value="{{order.others}}"></ion-textarea>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon name="card" slot="start" color="danger" size="large"></ion-icon>
-          <ion-text color="danger">
-            <h1>Total: {{meal.price * order.quantity}} Fcfa</h1>
-          </ion-text>
-        </ion-item>
-        <ion-button shape="round" (click)="confirm()">
-          Valider
-        </ion-button>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ng-template>
 </ion-content>

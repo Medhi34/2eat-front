@@ -1,3 +1,53 @@
-<p>
-  appreciation works!
-</p>
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>{{appreciation.date | date:"MM/dd/yy"}}</ion-card-subtitle>
+    <ion-card-title>{{appreciation.user.fullname}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-button id="popover-button-{{appreciation._id}}" slot="icon-only" class="popup" fill="clear">
+      <ion-icon name="ellipsis-vertical"></ion-icon>
+    </ion-button>
+    <p>{{appreciation.review}}</p>
+  </ion-card-content>
+</ion-card>
+
+<ion-popover trigger="popover-button-{{appreciation._id}}" [dismissOnSelect]="false">
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ion-item id="open-modal-{{appreciation._id}}" [button]="true" [detail]="false" >Modifier</ion-item>
+        <ion-item [button]="true" [detail]="false">Supprimer</ion-item>
+      </ion-list>
+    </ion-content>
+
+    <ion-modal trigger="open-modal-{{appreciation._id}}" (willDismiss)="onWillDismiss($event)" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50, 0.80, 1]">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Modifier appréciation</ion-title>
+            <ion-buttons slot="end">
+            <ion-button (click)="cancel()">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-icon slot="start" name="star"></ion-icon>
+            <ion-checkbox labelPlacement="start" checked="{{appreciation.isVoted}}">Mettre une étoile</ion-checkbox>
+          </ion-item>
+    
+          <ion-item>
+            <ion-icon slot="start" name="information-circle"></ion-icon>
+            <ion-textarea label="Votre commentaire" labelPlacement="floating" autocapitalize="true" value="{{appreciation.review}}"></ion-textarea>
+          </ion-item>
+          
+          <ion-button shape="round" (click)="confirm()">
+            Valider
+          </ion-button>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ng-template>
+</ion-popover>

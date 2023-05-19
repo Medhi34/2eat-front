@@ -11,7 +11,7 @@
   </ion-header>
 
   <div class="container">
-    <ion-item lines="none">
+    <ion-item lines="none" color="transparent">
       <ion-avatar slot="end" [routerLink]="['/login']">
         <img alt="Silhouette of a person's head" src="/assets/icon/avatar.svg" />
       </ion-avatar>
@@ -21,19 +21,13 @@
       </ion-label>
     </ion-item>
 
-    <ion-card class="hero">
+    <ion-card color="pastel-red" class="banner">
       <ion-card-header>
-        <ion-card-title>
-          <h2>Devenez contributeur</h2>
-        </ion-card-title>
+        <ion-card-title>2EAT FOOD</ion-card-title>
+        <ion-card-subtitle>Les boins coins à ta portée</ion-card-subtitle>
       </ion-card-header>
-
-      <ion-card-content>
-        <p>Enregistrer un boins coins où manger,
-          et bénéficier de bon de réduction pour vos futurs commandes.</p>
-      </ion-card-content>
     
-      <ion-button color="dark" shape="round">Contribuer</ion-button>
+      <ion-button color="dark">Contribuer</ion-button>
     </ion-card>
 
     <ion-list>
@@ -43,7 +37,18 @@
         </ion-label>
         <ion-button [routerLink]="['/tabs/search', 'Restaurant']">Voir tout</ion-button>
       </ion-list-header>
-      <app-restaurant *ngFor="let restaurant of restaurants" [restaurant]="restaurant" [distance]="2"></app-restaurant>
+
+      <span *ngIf="!isDone then skeleton else showRestaurants"></span>
+
+      <ng-template #skeleton>
+        <app-card-skeleton></app-card-skeleton>
+        <app-card-skeleton></app-card-skeleton>
+        <app-card-skeleton></app-card-skeleton>
+      </ng-template>
+      
+      <ng-template #showRestaurants>
+        <app-restaurant *ngFor="let restaurant of restaurants" [restaurant]="restaurant"></app-restaurant>
+      </ng-template>
     </ion-list>
 
   </div>

@@ -1,5 +1,5 @@
-<ion-card [routerLink]="['/restaurant-details', restaurant._id]">
-  <img alt="Silhouette of mountains" src="{{restaurant.images?.values()?.next()?.value.url}}" />
+<ion-card [routerLink]="['/restaurant-details', restaurant._id]" color="primary">
+  <img alt="Image restaurant" src="{{restaurant.images.values().next().value.url}}" />
   <ion-card-content>
     <ion-grid fixed>
       <ion-row>
@@ -11,21 +11,21 @@
           </ion-row>
           <ion-row>
             <ion-col size="12">
-              <p>{{restaurant.localisation?.country}}, {{restaurant.localisation?.city}}</p>
+              <p>{{restaurant.localisation.city}}, {{restaurant.localisation.area}}</p>
             </ion-col>
           </ion-row>
         </ion-col>
         <ion-col size="4">
           <ion-row>
             <ion-col size="12">
-              <ion-badge color="medium" mode="ios">{{restaurant.nbVotes}} vote(s)</ion-badge>
+              <ion-badge color="tertiary" mode="ios">{{restaurant.nbVotes}} vote(s)</ion-badge>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="12">
-              <ion-button fill="clear" size="small">
-                <ion-icon slot="start" name="location" color="primary"></ion-icon>
-                {{distance}} km
+              <ion-button fill="clear" size="small" color="medium">
+                <ion-icon slot="start" name="location"></ion-icon>
+                {{distance | number:'1.0-1'}} km
               </ion-button>
             </ion-col>
           </ion-row>

@@ -1,0 +1,35 @@
+{
+    "SETTINGS": {
+        "TITLE": "Parameters",
+        "SECTION_1": {
+            "TITLE": "General",
+            "ITEM_1": {
+                "PLACEHOLDER": "Select language",
+                "LABEL": "Change language",
+                "OPTIONS_1": "French",
+                "OPTIONS_2": "English"
+            },
+            "ITEM_2": {
+                "LABEL": "Dark mode"
+            }
+        },
+        "SECTION_2": {
+            "TITLE": "Security",
+            "ITEM_1": {
+                "LABEL": "Change e-mail"
+            },
+            "ITEM_2": {
+                "LABEL": "Change password"
+            },
+            "ITEM_3": {
+                "LABEL": "Delete account"
+            }
+        },
+        "SECTION_3": {
+            "TITLE": "Help",
+            "ITEM_1": {
+                "LABEL": "Send reports"
+            }
+        }
+    }
+}

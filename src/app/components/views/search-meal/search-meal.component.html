@@ -1,5 +1,14 @@
 <div class="container">
   <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000"></ion-searchbar>
+  <span *ngIf="!isDone then skeleton else showMeals"></span>
 
-  <app-meal *ngFor="let meal of results" [meal]="meal"></app-meal>
+  <ng-template #skeleton>
+    <app-card-skeleton></app-card-skeleton>
+    <app-card-skeleton></app-card-skeleton>
+    <app-card-skeleton></app-card-skeleton>
+  </ng-template>
+
+  <ng-template #showMeals>
+    <app-meal *ngFor="let meal of results" [meal]="meal"></app-meal>
+  </ng-template>
 </div>

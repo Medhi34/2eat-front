@@ -1,11 +1,11 @@
-<ion-card>
-  <img [routerLink]="['/meal-details', meal._id]" alt="Photo du repas" src="{{meal.images.values().next().value.url}}" />
+<ion-card color="primary-fade">
+  <img [routerLink]="['/meal-details', meal._id]" alt="Image repas" src="{{meal.images.values().next().value.url}}" />
   <ion-card-content>
     <ion-grid fixed>
       <ion-row>
         <ion-col size="10">
           <h2>{{meal.name}}</h2>
-          <p>{{meal.price}} F cfa</p>
+          <p>{{meal.price}} Fcfa</p>
         </ion-col>
         <ion-col size="2">
           <ion-button fill="clear" color="light" (click)="makeFavourite()">

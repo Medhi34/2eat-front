@@ -7,6 +7,6 @@ export interface Meal {
     images: Map<string, Image>,
     accompagnements: string[],
     price: number,
-    restaurant: Restaurant | null,
+    restaurant: Restaurant,
     isFavourite: boolean
 }
