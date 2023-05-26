@@ -53,5 +53,6 @@ export class AccountPage implements OnInit {
     });
 
   }
+  logout(){}
 
 }
