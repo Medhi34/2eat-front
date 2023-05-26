@@ -1,8 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { IonAccordionGroup } from '@ionic/angular';
-import { Image } from 'src/app/models/Image';
-import { Restaurant } from 'src/app/models/Restaurant';
+import { Component, Input, OnInit } from '@angular/core';
+import { DisplayedRestaurant } from 'src/app/models/RestaurantDisplayed';
 import { ApiService } from 'src/app/services/api.service';
+import { GeolocalisationService } from 'src/app/services/geolocalisation.service';
 
 @Component({
   selector: 'app-search-restaurant',
@@ -12,22 +11,36 @@ import { ApiService } from 'src/app/services/api.service';
 export class SearchRestaurantComponent  implements OnInit {
 
   isDone:boolean = false;
-  restaurants!:Restaurant[];
-  results:Restaurant[] = [];
+  results:DisplayedRestaurant[] = [];
+  displayedRestaurants:DisplayedRestaurant[] = [];
 
   @Input("category")category!:string;
   @Input("city")city!:string;
 
   advancedSearchSelected:string = "";
 
-  constructor(private api:ApiService) { }
+  constructor(private api:ApiService, private location:GeolocalisationService) { }
 
   ngOnInit() {
-    this.api.getAllRestaurants().subscribe(vals => {
-      this.restaurants = vals
-      this.results = this.restaurants;
-      this.isDone = true;
-    })
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    if(userToken != null){
+      this.api.getUserById(userToken.userId).subscribe((val:any) => {
+        this.api.getAllRestaurants(val.localisation.latitude, val.localisation.longitude).subscribe((vals) => {
+          this.displayedRestaurants = vals;
+          this.results = this.displayedRestaurants;
+          this.isDone = true;
+        });
+      })
+    }else{
+      this.location.getCurrentPosition()
+      .then(coords => {
+        this.api.getAllRestaurants(coords.latitude, coords.longitude).subscribe((vals) => {
+          this.displayedRestaurants = vals;
+          this.results = this.displayedRestaurants;
+          this.isDone = true;
+        });
+      });
+    }
   }
 
   selectedSearch(event:any){
@@ -36,26 +49,54 @@ export class SearchRestaurantComponent  implements OnInit {
 
   handleInput(event:any) {
     const query = event.target.value.toLowerCase();
-    this.results = this.restaurants.filter((d) => d.name.toLowerCase().indexOf(query) > -1);
+    this.results = this.displayedRestaurants.filter((d) => d.restaurant.name.toLowerCase().indexOf(query) > -1);
   }
 
   applyFilter(){
     this.isDone = false;
     switch(this.advancedSearchSelected){
       case 'category': {
-        this.api.getRestaurantsByCategoy(this.category).subscribe(vals => {
-          this.restaurants = vals
-          this.results = this.restaurants;
-          this.isDone = true;
-        })
+        const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+        if(userToken != null){
+          this.api.getUserById(userToken.userId).subscribe((val:any) => {
+            this.api.getRestaurantsByCategoy(this.category, val.localisation.latitude, val.localisation.longitude).subscribe(vals => {
+              this.displayedRestaurants = vals;
+              this.results = this.displayedRestaurants;
+              this.isDone = true;
+            })
+          })
+        }else{
+          this.location.getCurrentPosition()
+          .then(coords => {
+            this.api.getRestaurantsByCategoy(this.category, coords.latitude, coords.longitude).subscribe((vals) => {
+              this.displayedRestaurants = vals;
+              this.results = this.displayedRestaurants;
+              this.isDone = true;
+            });
+          });
+        }
         break;
       }
       case 'city': {
-        this.api.getRestaurantsByCity(this.city).subscribe(vals => {
-          this.restaurants = vals
-          this.results = this.restaurants;
-          this.isDone = true;
-        })
+        const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+        if(userToken != null){
+          this.api.getUserById(userToken.userId).subscribe((val:any) => {
+            this.api.getRestaurantsByCity(this.city, val.localisation.latitude, val.localisation.longitude).subscribe(vals => {
+              this.displayedRestaurants = vals;
+              this.results = this.displayedRestaurants;
+              this.isDone = true;
+            })
+          })
+        }else{
+          this.location.getCurrentPosition()
+          .then(coords => {
+            this.api.getRestaurantsByCity(this.city, coords.latitude, coords.longitude).subscribe((vals) => {
+              this.displayedRestaurants = vals;
+              this.results = this.displayedRestaurants;
+              this.isDone = true;
+            });
+          });
+        }
         break;
       }
     }

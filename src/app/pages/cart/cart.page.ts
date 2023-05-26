@@ -12,4 +12,7 @@ export class CartPage implements OnInit {
   ngOnInit() {
   }
 
+  handleInput(event:any){
+
+  }
 }

@@ -1,12 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title size="large">Mon panier</ion-title>
+    <ion-title size="large" class="title">Mes commandes</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/" icon="caret-back" color="primary"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
+  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000" mode="ios" animated="true"></ion-searchbar>
+
+  <div class="context">
+    <div class="container">
+      <app-cart-item></app-cart-item>
+      <app-cart-item></app-cart-item>
+      <app-cart-item></app-cart-item>
+      <app-cart-item></app-cart-item>
+    </div>
+
+    <footer>
+      <ion-grid fixed class="total-bill">
+        <ion-row>
+          <ion-col size="8" class="price">
+            <h3>Total : XXXX Fcfa</h3>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button expand="block" shape="round" color="dark">
+              Payer
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </footer>
+  </div>
 </ion-content>

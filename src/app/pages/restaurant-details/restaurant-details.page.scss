@@ -48,8 +48,9 @@ capacitor-google-map{
     justify-content: space-between;
     font-size: 2rem;
     ion-badge{
-        font-size: 1rem;
-        padding: 0.5rem;
+        font-size: small;
+        padding: .5rem;
+        border-radius: .4rem;
     }
 }
 
@@ -59,4 +60,9 @@ ion-grid{
         flex-direction: column;
         justify-content: center;
     }
+}
+
+ion-modal{
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --border-radius: .5rem;
 }

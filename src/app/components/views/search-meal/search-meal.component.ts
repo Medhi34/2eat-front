@@ -14,20 +14,26 @@ export class SearchMealComponent  implements OnInit {
   results:Meal[] = [];
   isDone:boolean = false;
   @Input() displayedPage!:string; // search / restaurant / favourite
+  @Input() idRes!:string;
 
   constructor(private api:ApiService) { }
 
   ngOnInit() {
     switch(this.displayedPage){
       case "restaurant": {
+        this.api.getMealsOfRestaurant(this.idRes).subscribe((vals:any) => {
+          this.meals = vals;
+          this.results = this.meals;
+          this.isDone = true;
+        })
         break;
       }
       case "favourite": {
         break;
       }
       default: {
-        this.api.getAllMeals().subscribe(val => {
-          this.meals = val;
+        this.api.getAllMeals().subscribe(vals => {
+          this.meals = vals;
           this.results = this.meals;          
           this.isDone = true;
         });

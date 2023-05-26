@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Image } from 'src/app/models/Image';
-import { Restaurant } from 'src/app/models/Restaurant';
+import { DisplayedRestaurant } from 'src/app/models/RestaurantDisplayed';
+import { User } from 'src/app/models/User';
 import { ApiService } from 'src/app/services/api.service';
+import { GeolocalisationService } from 'src/app/services/geolocalisation.service';
 
 @Component({
   selector: 'app-home',
@@ -10,18 +11,37 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class HomePage implements OnInit {
 
-  isDone:boolean = false;
-  restaurants:Restaurant[] = [];
+  user!:User;
+  isConnected:boolean = false;
+  isNotDone:boolean = true;
+  displayedRestaurants:DisplayedRestaurant[] = [];
 
-  constructor(private api:ApiService) { }
+  constructor(private api:ApiService, private location:GeolocalisationService) { }
 
   ngOnInit() {
-    this.api.getAllRestaurants().subscribe(vals => {
-      this.restaurants = vals
-      this.isDone = true;
-    })
+    
   }
 
-
+  ionViewWillEnter() {
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    if(userToken != null){
+      this.api.getUserById(userToken.userId).subscribe((val:any) => {
+        this.user = val;
+        this.isConnected = true;
+        this.api.getAllRestaurants(this.user.localisation.latitude, this.user.localisation.longitude).subscribe((vals) => {
+          this.displayedRestaurants = vals
+          this.isNotDone = false;
+        });
+      })
+    }else{
+      this.location.getCurrentPosition()
+      .then(coords => {
+        this.api.getAllRestaurants(coords.latitude, coords.longitude).subscribe((vals) => {
+          this.displayedRestaurants = vals
+          this.isNotDone = false;
+        });
+      });
+    }
+  }
 
 }

@@ -13,6 +13,10 @@ import { CommentsComponent } from './views/comments/comments.component';
 import { CardSkeletonComponent } from './skeleton/card-skeleton/card-skeleton.component';
 import { DetailsMealSkeletonComponent } from './skeleton/details-meal-skeleton/details-meal-skeleton.component';
 import { FormsModule } from '@angular/forms';
+import { HomeSkeletonComponent } from './skeleton/home-skeleton/home-skeleton.component';
+import { NoConnectionComponent } from './no-connection/no-connection.component';
+import { DetailsRestaurantSkeletonComponent } from './skeleton/details-restaurant-skeleton/details-restaurant-skeleton.component';
+import { CartItemComponent } from './cart-item/cart-item.component';
 
 
 
@@ -26,7 +30,11 @@ import { FormsModule } from '@angular/forms';
     AppreciationComponent,
     CommentsComponent,
     CardSkeletonComponent,
-    DetailsMealSkeletonComponent
+    DetailsMealSkeletonComponent,
+    HomeSkeletonComponent,
+    NoConnectionComponent,
+    DetailsRestaurantSkeletonComponent,
+    CartItemComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +52,11 @@ import { FormsModule } from '@angular/forms';
     AppreciationComponent,
     CommentsComponent,
     CardSkeletonComponent,
-    DetailsMealSkeletonComponent
+    DetailsMealSkeletonComponent,
+    HomeSkeletonComponent,
+    NoConnectionComponent,
+    DetailsRestaurantSkeletonComponent,
+    CartItemComponent
   ]
 })
 export class ComponentsModule { }

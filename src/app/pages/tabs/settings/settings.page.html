@@ -1,17 +1,51 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{textLanguage.TITLE}}</ion-title>
+    <ion-title class="title">{{textLanguage.TITLE}}</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button menu="main-content"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end" id="present-alert">
+      <ion-button shape="round">
+        <ion-icon slot="icon-only" name="power" color="primary"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="container">
+    <span *ngIf="isConnected then connected else notConnected"></span>
+      <ng-template #connected>
+        <ion-item lines="none" color="transparent" class="banner">
+          <ion-avatar slot="end" [routerLink]="['/account']">
+            <img alt="User image" *ngIf="user.imageUrl != '' else noProfilePhoto"src="{{user.imageUrl}}" />
+            <ng-template #noProfilePhoto>
+              <img alt="Silhouette of a person's head" src="/assets/img/user-profile.png" />
+            </ng-template>
+          </ion-avatar>
+          <ion-label class="greating-user">
+            <h2>{{user.fullname | titlecase}}</h2>
+            <h4>{{user.localisation.city}}, {{user.localisation.area}}</h4>
+          </ion-label>
+        </ion-item>
+      </ng-template>
+
+      <ng-template #notConnected>
+        <ion-item lines="none" color="transparent" class="banner">
+          <ion-avatar slot="end" [routerLink]="['/login']">
+            <img alt="Silhouette of a person's head" src="/assets/icon/avatar.svg" />
+          </ion-avatar>
+          <ion-label class="greating">
+            <h4>Hey</h4>
+            <h2>Connecte-toi !</h2>
+          </ion-label>
+        </ion-item>
+      </ng-template>
+
+
     <ion-list>
       <ion-item-group>
-        <ion-item-divider color="light">
+        <ion-item-divider color="ultra-light">
           <ion-icon slot="start" name="settings-outline"></ion-icon>
           <ion-label>{{textLanguage.SECTION_1.TITLE}}</ion-label>
         </ion-item-divider>
@@ -30,33 +64,10 @@
         </ion-item>
         
       </ion-item-group>
-
-      <ion-item-group>
-        <ion-item-divider color="light">
-          <ion-icon slot="start" name="shield-half-outline"></ion-icon>
-          <ion-label>{{textLanguage.SECTION_2.TITLE}}</ion-label>
-        </ion-item-divider>
-
-        <ion-item>
-          <ion-icon name="at-outline" slot="start"></ion-icon>
-          <ion-label>{{textLanguage.SECTION_2.ITEM_1.LABEL}}</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-          <ion-label>{{textLanguage.SECTION_2.ITEM_2.LABEL}}</ion-label>
-        </ion-item>
-
-        <ion-item lines="none">
-          <ion-icon name="trash-outline" slot="start" color="danger"></ion-icon>
-          <ion-label color="danger">{{textLanguage.SECTION_2.ITEM_3.LABEL}}</ion-label>
-        </ion-item>
-      
-      </ion-item-group>   
       
       <ion-item-group>
-        <ion-item-divider color="light">
-          <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+        <ion-item-divider color="ultra-light">
+          <ion-icon slot="start" name="help-circle-outline"></ion-icon>
           <ion-label>{{textLanguage.SECTION_3.TITLE}}</ion-label>
         </ion-item-divider>
 
@@ -64,7 +75,18 @@
           <ion-icon name="warning-outline" slot="start"></ion-icon>
           <ion-label>{{textLanguage.SECTION_3.ITEM_1.LABEL}}</ion-label>
         </ion-item>
+        <ion-item lines="none">
+          <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+          <ion-label>A propos</ion-label>
+        </ion-item>
       </ion-item-group>
     </ion-list>
   </div>
 </ion-content>
+
+<ion-alert
+  trigger="present-alert"
+  header="Déconnexion"
+  message="Voulez-vous vraiment vous déconnecter ?"
+  [buttons]="alertButtons"
+></ion-alert>

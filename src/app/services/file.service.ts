@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
+import { UserPhoto } from '../models/Photo';
 
 @Injectable({
   providedIn: 'root'
@@ -65,5 +66,10 @@ export class FileService {
       encoding: Encoding.UTF8,
     }).then(() => console.log("Retirer favoris"));
     
+  }
+
+  async createFile(photo:UserPhoto){
+    let response = await fetch(photo.webviewPath || '');
+    return await response.blob();
   }
 }

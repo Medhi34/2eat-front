@@ -1,0 +1,31 @@
+.context{
+    height: calc(100% - 60px);
+    width: 100vw;
+    .container{
+        height: 85%;
+        overflow: auto;
+        padding: 0 1.5rem;
+    }
+    
+    footer{
+        height: 15%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        background-color: transparent;
+        .total-bill{
+            margin: 0 .8rem;
+            background-color: var(--ion-color-pastel-red);
+            border-radius: 1rem;
+            .price{
+                display: flex;
+                align-items: center;
+                h3{
+                    margin: 0 .5rem;
+                    color: var(--ion-color-pastel-red-contrast);
+                }
+            }
+            
+        }
+    }
+}

@@ -1,5 +1,5 @@
 <div class="container">
-  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000"></ion-searchbar>
+  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000" mode="ios" animated="true"></ion-searchbar>
 
   <span *ngIf="!isDone then skeleton else showRestaurants"></span>
 
@@ -11,9 +11,8 @@
 
   <ng-template #showRestaurants>
     <ion-accordion-group>
-      <ion-accordion value="filter">
-        <ion-item slot="header" color="light">
-          <ion-label>Recherche avancée</ion-label>
+      <ion-accordion value="filter" toggleIcon="options">
+        <ion-item slot="header" class="btn-filter">
         </ion-item>
         <div class="ion-padding" slot="content">
           <ion-radio-group name="advancedSearch">
@@ -40,6 +39,6 @@
       </ion-accordion>
     </ion-accordion-group>
   
-    <app-restaurant *ngFor="let restaurant of results" [restaurant]="restaurant"></app-restaurant>
+    <app-restaurant *ngFor="let val of results" [restaurant]="val.restaurant" [distance]="val.distance"></app-restaurant>
   </ng-template>
 </div>
