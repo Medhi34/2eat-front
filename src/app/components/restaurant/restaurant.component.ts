@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Image } from 'src/app/models/Image';
+import { Localisation } from 'src/app/models/Localisation';
 import { Restaurant } from 'src/app/models/Restaurant';
 import { GeolocalisationService } from 'src/app/services/geolocalisation.service';
 
@@ -10,22 +11,13 @@ import { GeolocalisationService } from 'src/app/services/geolocalisation.service
 })
 export class RestaurantComponent  implements OnInit {
 
-  @Input() restaurant!:Restaurant;
-  distance:number = 0;
+  @Input("restaurant") restaurant!:Restaurant;
+  @Input("distance") distance!:number;
 
-  constructor(private location:GeolocalisationService) { }
+  constructor() { }
 
   ngOnInit() {
     this.restaurant.images = new Map<string, Image>(Object.entries(this.restaurant.images));
-    this.location.getCurrentPosition()
-      .then(coords => {
-        this.distance = this.location.getDistance(
-          this.restaurant.localisation.latitude,
-          this.restaurant.localisation.longitude,
-          coords.latitude,
-          coords.longitude
-        )
-      });
   }
 
 }

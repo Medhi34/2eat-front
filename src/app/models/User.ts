@@ -15,3 +15,13 @@ export interface User {
     imageUrl: string,
     localisation: Localisation
 }
+
+export interface Login{
+    email:string,
+    password:string
+}
+
+export interface UserToken{
+    userId:string,
+    token:string
+}

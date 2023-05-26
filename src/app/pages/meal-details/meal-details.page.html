@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title>Détails</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="tabs/search/Tous"></ion-back-button>
+      <ion-back-button defaultHref="tabs/search/Tous" icon="caret-back" color="primary"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <app-cart-buttons></app-cart-buttons>
@@ -77,23 +77,11 @@
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          <ion-grid fixed>
-            <ion-row>
-              <ion-col size="4">
-                <button class="left" (click)="addQuantity()">
-                  <ion-icon slot="icon-only" name="add"></ion-icon>
-                </button>
-              </ion-col>
-              <ion-col size="4">
-                <ion-input type="number" labelPlacement="floating" label="" value="{{order.quantity}}"></ion-input>
-              </ion-col>
-              <ion-col size="4">
-                <button class="right" (click)="removeQuantity()">
-                  <ion-icon slot="icon-only" name="remove"></ion-icon>
-                </button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          <div class="commande">
+            <button class="moins" (click)="removeQuantity()">-</button>
+            <span class="quantite">{{order.quantity}}</span>
+            <button class="plus" (click)="addQuantity()">+</button>
+          </div>
           <ion-item>
             <ion-icon slot="start" name="flame" color="primary"></ion-icon>
             <ion-checkbox labelPlacement="start" checked="{{order.hot}}">Chaud</ion-checkbox>

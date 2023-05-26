@@ -1,54 +1,38 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title size="large">Mon panier</ion-title>
+    <ion-title size="large" class="title">Mes commandes</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/" icon="caret-back" color="primary"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000" mode="ios" animated="true"></ion-searchbar>
 
-  
+  <div class="context">
+    <div class="container">
+      <app-cart-item></app-cart-item>
+      <app-cart-item></app-cart-item>
+      <app-cart-item></app-cart-item>
+      <app-cart-item></app-cart-item>
+    </div>
 
-  <ng-container>
-    <ion-list lines="none" class="borderBottomSmall">
-      <ion-item>
-        <ion-thumbnail slot="start">
-          <ion-img [src]="model?.restaurant?.cover ? model.restaurant.cover : 'assets/imgs/eru.jpg'"></ion-img>
-        </ion-thumbnail>
-        <ion-label>
-          <ion-text><h4>{{model?.restaurant?.name}}</h4></ion-text>
-          <ion-note>{{model?.restaurant?.address}}</ion-note>
-        </ion-label>
-      </ion-item>
-    
-    </ion-list>
-  
-    <ion-item lines="none" class="borderBottom">
-      <ion-icon slot="start" name="list-outline"></ion-icon>
-      <ion-input type="text" placeholder="Une Consigne ? Nous ferons de notre mieux"></ion-input>
-    </ion-item>
-  
-    <ion-list class="borderBottom">
-      <ion-list-header>
-        <ion-label color="tertiary">Details De la Facture</ion-label>
-      </ion-list-header>
-      <ion-item lines="none">
-        <ion-label color="dark">Total Produits</ion-label>
-        <ion-text slot="end" color="dark">₹{{model?.totalPrice}}</ion-text>
-      </ion-item>
-      <ion-item lines="full">
-        <ion-label color="dark">Frais de Livraison</ion-label>
-        <ion-text slot="end" color="dark">₹{{model?.deliveryCharge}}</ion-text>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-label color="dark">Payer</ion-label>
-        <ion-text slot="end" color="dark"><h5>₹{{model?.grandTotal}}</h5></ion-text>
-      </ion-item>
-    </ion-list>
-  </ng-container>
-
+    <footer>
+      <ion-grid fixed class="total-bill">
+        <ion-row>
+          <ion-col size="8" class="price">
+            <h3>Total : XXXX Fcfa</h3>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button expand="block" shape="round" color="dark">
+              Payer
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </footer>
+  </div>
 </ion-content>
 
 <ion-footer *ngIf="model?.restaurant">

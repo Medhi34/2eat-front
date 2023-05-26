@@ -1,83 +1,96 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title size="large">S'authentifier</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/"></ion-back-button>
+      <ion-back-button defaultHref="/" icon="caret-back" color="tertiary" text="Retour"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="container">
-    <div class="header">
-      <img src="assets/icon/favicon.png" alt="Logo">
-      <ion-text color="primary">
-        <h1></h1>
+    <header>
+      <img src="assets/icon/avatar.svg" alt="Logo">
+      <ion-text>
+        <h4>2EAT / Connexion</h4>
+        <small>Connectez-vous à votre compte</small>
       </ion-text>
-    </div>
-    <div class="page-content ion-padding">
-      <ion-item-group mode="ios">
-        <ion-item lines="none" color="primary">
-          <ion-input type="email" label="Email" labelPlacement="floating"></ion-input>
+    </header>
+    <div class="main">
+      <form [formGroup]="loginForm" (ngSubmit)="onSignIn()" novalidate>
+        <ion-item lines="none">
+          <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
         </ion-item>
-        <ion-item lines="none" color="primary">
-          <ion-input type="password" label="Mot de passe" labelPlacement="floating"></ion-input>
+        <ion-item lines="none">
+          <ion-input type="password" placeholder="Mot de passe" clearOnEdit="true" formControlName="password"></ion-input>
         </ion-item>
-      </ion-item-group>
-      <div class="ion-padding">
-        <ion-button size="large" mode="ios" expand="block" color="success">
+        <span class="errorMsg" *ngIf="msgError != ''">{{msgError}}</span>
+        <ion-button expand="full" color="secondary" shape="round" strong="true" type="submit" [disabled]="!loginForm.valid">
           Connexion
+          <ion-spinner name="circular" *ngIf="isSubmitedLogin"></ion-spinner>
         </ion-button>
-        <ion-text color="light">
-          <p>Pas encore de compte ? <a id="open-modal">Créer un compte</a></p>
+        <ion-text>
+          <p>Pas encore de compte ? <a id="open-modal">S'inscrire</a></p>
         </ion-text>
-      </div>
+      </form>
     </div>
   </div>
+</ion-content>
 
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+<ion-modal trigger="open-modal">
     <ng-template>
-      <ion-header>
+      <ion-header [translucent]="true" class="ion-no-border">
         <ion-toolbar>
-          <ion-title>S'Inscrire</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="cancel()">
-              <ion-icon slot="icon-only" name="close"></ion-icon>
+            <ion-button (click)="cancel()" color="primary">
+              <ion-icon slot="end" name="close"></ion-icon>
+              Annuler
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding">
-        <ion-item lines="none">
-          <ion-text class="ion-text-center">
-            <h2>Créer un compte</h2>
-            <small>Enregistrez-vous pour pouvoir bénéficier de toutes nos fonctionnalités</small>
+      <ion-content>
+        <div class="container">
+          <div class="photo-container">
+            <ion-button (click)="addPhotoToGallery()">
+              <ion-icon slot="icon-only" name="camera"></ion-icon>
+            </ion-button>
+            <ion-img *ngIf="hasLoadPicture" [src]="photoService.photos[0].webviewPath"></ion-img>
+          </div>
+          
+          <ion-text>
+            <h4>2EAT / Inscription</h4>
+            <small>Crée un compte et bénéficie de toutes les fonctionnalités</small>
           </ion-text>
-        </ion-item>
-        <div class="photo-container">
-          <ion-button (click)="addPhotoToGallery()">
-            <ion-icon slot="icon-only" name="camera"></ion-icon>
-          </ion-button>
-          <ion-img [src]="photoService.photos[0].webviewPath"></ion-img>
+
+          <span class="errorMsg" *ngIf="error != ''">{{error}}</span>
+  
+          <form [formGroup]="registerForm" (ngSubmit)="onSignUp()">
+            <ion-item lines="none">
+              <ion-icon slot="start" name="person-outline"></ion-icon>
+              <ion-input type="text" placeholder="Nom complet" formControlName="fullname" helperText="Prénom & Nom"></ion-input>
+            </ion-item>
+    
+            <ion-item lines="none">
+              <ion-icon slot="start" name="mail-outline"></ion-icon>
+              <ion-input type="email" placeholder="Email" formControlName="email" helperText="exemple: xyz@exemple.com"></ion-input>
+            </ion-item>
+    
+            <ion-item lines="none">
+              <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+              <ion-input type="password" placeholder="Mot de passe" clearOnEdit="true" formControlName="password" helperText="Minimum 8 caractères"></ion-input>
+            </ion-item>
+    
+            <ion-item lines="none">
+              <ion-icon slot="start" name="call-outline"></ion-icon>
+              <ion-input type="number" placeholder="Téléphone" formControlName="phone" helperText="Ex: 699 00 00 90"></ion-input>
+            </ion-item>
+            
+            <ion-button class="validate" strong="true" type="submit" expand="full" shape="round" [disabled]="!registerForm.valid">
+              Confirmer
+              <ion-spinner name="circular" *ngIf="isSubmitedRegister"></ion-spinner>
+            </ion-button>
+          </form>
         </div>
-        <ion-item lines="none">
-          <ion-icon slot="start" name="person"></ion-icon>
-          <ion-input type="text" label="Nom complet" labelPlacement="floating" ></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon slot="start" name="at"></ion-icon>
-          <ion-input type="email" label="Email" labelPlacement="floating" ></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon slot="start" name="lock-closed"></ion-icon>
-          <ion-input type="password" label="Mot de passe" labelPlacement="floating" ></ion-input>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-icon slot="start" name="call"></ion-icon>
-          <ion-input type="number" label="Téléphone" labelPlacement="floating" ></ion-input>
-        </ion-item>
-        <ion-button (click)="confirm()" size="large">Confirmer</ion-button>
       </ion-content>
     </ng-template>
-  </ion-modal>
-</ion-content>
+</ion-modal>

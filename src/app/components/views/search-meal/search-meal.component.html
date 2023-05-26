@@ -1,5 +1,5 @@
 <div class="container">
-  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000"></ion-searchbar>
+  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000" mode="ios" animated="true"></ion-searchbar>
   <span *ngIf="!isDone then skeleton else showMeals"></span>
 
   <ng-template #skeleton>

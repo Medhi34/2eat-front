@@ -140,5 +140,7 @@ export class CartPage implements OnInit {
   scrollToBottom() {
    // this.content.scrollToBottom(500);
   }
+  handleInput(event:any){
 
+  }
 }
