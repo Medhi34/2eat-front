@@ -2,24 +2,24 @@
   <form [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
     <ion-item class="input" lines="none">
       <ion-icon name="storefront-outline" slot="start"></ion-icon>
-      <ion-input formControlName="name" type="text" label="Nom du restaurant" labelPlacement="floating"></ion-input>
+      <ion-input formControlName="name" type="text" label="{{textLanguage.ITEM_1}}" labelPlacement="floating"></ion-input>
     </ion-item>
     <ion-item class="input" lines="none">
       <ion-icon name="call-outline" slot="start"></ion-icon>
-      <ion-input formControlName="phone" type="number" label="Numéro de téléphone" labelPlacement="floating"></ion-input>
+      <ion-input formControlName="phone" type="number" label="{{textLanguage.ITEM_2}}" labelPlacement="floating"></ion-input>
     </ion-item>
     <ion-item lines="none" class="input">
-      <ion-select formControlName="categories" multiple="true" label="Choisissez des catégories" labelPlacement="floating">
-        <ion-select-option value="Street-food">Street-food</ion-select-option>
-        <ion-select-option value="Fast-food">Fast-food</ion-select-option>
-        <ion-select-option value="Caféteria">Caféteria</ion-select-option>
-        <ion-select-option value="Café-Resto">Café-Resto</ion-select-option>
-        <ion-select-option value="Restaurant Classique">Restaurant Classique</ion-select-option>
-        <ion-select-option value="Cuisine Traditionnelle">Cuisine Traditionnelle</ion-select-option>
+      <ion-select formControlName="categories" multiple="true" label="{{textLanguage.SELECT_CATEGORIES.TITLE}}" labelPlacement="floating">
+        <ion-select-option value="Street-food">{{textLanguage.SELECT_CATEGORIES.CATEGORY_1}}</ion-select-option>
+        <ion-select-option value="Fast-food">{{textLanguage.SELECT_CATEGORIES.CATEGORY_2}}</ion-select-option>
+        <ion-select-option value="Caféteria">{{textLanguage.SELECT_CATEGORIES.CATEGORY_3}}</ion-select-option>
+        <ion-select-option value="Café-Resto">{{textLanguage.SELECT_CATEGORIES.CATEGORY_4}}</ion-select-option>
+        <ion-select-option value="Restaurant Classique">{{textLanguage.SELECT_CATEGORIES.CATEGORY_5}}</ion-select-option>
+        <ion-select-option value="Cuisine Traditionnelle">{{textLanguage.SELECT_CATEGORIES.CATEGORY_6}}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-button expand="block" shape="round" type="submit" [disabled]="restaurantForm.invalid">
-      Valider
+      {{textLanguage.SUBMIT_BUTTON}}
       <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
     </ion-button>
   </form>

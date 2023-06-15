@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonModal, ViewWillEnter } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-favourite',
@@ -13,10 +14,12 @@ export class FavouritePage implements OnInit, ViewWillEnter {
   isConnected = false;
   isOffline = false;
   userId = "";
+  textLanguage!:any;
 
-  constructor() { }
+  constructor(private translate: TranslateService) { }
 
   ionViewWillEnter(): void {
+    this.translate.get('FAVOURITE').subscribe((res) => this.textLanguage = res);
     const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
     if(userToken){
       this.userId = userToken.userId;

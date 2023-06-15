@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, IonModal, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Meal } from 'src/app/models/Meal';
 import { ApiService } from 'src/app/services/api.service';
 import { FileService } from 'src/app/services/file.service';
@@ -20,11 +21,13 @@ export class UpdateMealsComponent  implements OnInit {
   isLoading = false;
   mealForm!:FormGroup;
   meals = new Map<string, Meal>();
+  textLanguage!:any
 
   constructor(public photoService:PhotoService, private api:ApiService, private alertController: AlertController, 
-    private formBuilder: FormBuilder, private file:FileService, private toastController: ToastController) { }
+    private formBuilder: FormBuilder, private file:FileService, private toastController: ToastController, private translate: TranslateService) { }
 
   ngOnInit() {
+    this.translate.get('UPDATE_MEALS').subscribe((res) => this.textLanguage = res);
     this.api.getMealsOfRestaurant(this.restaurantId).subscribe((vals:any) => {
       for(let meal of vals){
         this.meals.set(meal._id, meal);

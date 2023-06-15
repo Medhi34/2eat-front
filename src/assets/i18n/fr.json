@@ -90,19 +90,49 @@
         "CANCEL_BUTTON": "Annuler"
     },
     "MEAL_DETAILS": {
-        
+        "TITLE": "Détails",
+        "PRICE_TEXT": "Prix",
+        "ACCOMPAGNEMENTS_TEXT": "Les accompagnements possibles",
+        "COMMAND_BUTTON": "Commander",
+        "FORM": {
+            "CANCEL_BUTTON": "Annuler",
+            "ITEM_1": "Plat Chaud",
+            "ITEM_2": "Plat Epicé",
+            "ITEM_3": "Accompagnement",
+            "ITEM_4": "Avez-vous des récommandations ?",
+            "SUBMIT_BUTTON": "Valider"
+        }
     },
     "RESTAURANT_DETAILS": {
-        
+        "TITLE": "Détails",
+        "MODIFY_BUTTON": "Modifier",
+        "LIST_MEAL_BUTTON": "Voir le(s) repas",
+        "ACCORDION": {
+            "ITEM_1": "Photos",
+            "ITEM_2": "Commentaires"
+        },
+        "CANCEL_BUTTON": "Annuler"
     },
     "FAVOURITE": {
-        
+        "TITLE": "Favoris"
     },
     "HOME": {
-        
+        "TITLE": "2EAT",
+        "GREATINGS": {
+            "ONLINE": "Salut",
+            "OFFLINE": "Connecte-toi !"
+        },
+        "CARD": {
+            "TITLE": "2EAT FOOD",
+            "SUBTITLE": "Découvre les boins coins proche de toi",
+            "TEXT": "Toi aussi particpe à l'aventure en proposant de nouveaux emplacement, et gagne des pourcentages de réductions.",
+            "CONTRIBUTION_BUTTON": "Contribuer"
+        },
+        "LIST_LABEL": "Parcourir les restaurants",
+        "SEE_ALL_BUTTON": "Voir tout"
     },
-    "SEARCH": {
-        
+    "SEARCH_MEAL": {
+        "SEARCHBAR": "Rechercher"
     },
     "NO_CONNECT": {
         "TITLE": "Vous n'êtes pas connecté à internet !",
@@ -152,7 +182,7 @@
     "STEP2_CONTRIBUTION": {
         "TITLE": "Etape 2",
         "SELECT_CATEGORIES": {
-            "TITLE": "Choisissez une catégorie",
+            "TITLE": "Choisissez des catégories",
             "CATEGORY_1": "Street-food",
             "CATEGORY_2": "Fast-food",
             "CATEGORY_3": "Caféteria",
@@ -198,6 +228,39 @@
             "ITEM_2": "Email",
             "ITEM_3": "Mot de passe",
             "ITEM_4": "Téléphone",
+            "SUBMIT_BUTTON": "Valider"
+        }
+    },
+    "CHANGE_PICTURES": {
+        "ADD_BUTTON":"Prendre une photo",
+        "SUBMIT_BUTTON": "Valider"
+    },
+    "RESTAURANT_INFOS": {
+        "ITEM_1": "Nom du restaurant",
+        "ITEM_2":"Numéro de téléphone",
+        "SELECT_CATEGORIES": {
+            "TITLE": "Choisissez des catégories",
+            "CATEGORY_1": "Street-food",
+            "CATEGORY_2": "Fast-food",
+            "CATEGORY_3": "Caféteria",
+            "CATEGORY_4": "Café-Resto",
+            "CATEGORY_5": "Restaurant Classique",
+            "CATEGORY_6": "Cuisine Traditionnelle"
+        },
+        "SUBMIT_BUTTON": "Valider"
+    },
+    "UPDATE_MEALS": {
+        "SEARCHBAR": "Rechercher",
+        "ADD_MEAL_BUTTON": "Ajouter un repas",
+        "FORM": {
+            "CANCEL_BUTTON": "Annuler",
+            "TITLE": "Ajout d'un nouveau repas",
+            "ADD_BUTTON": "Prendre une photo",
+            "EMPTY_IMAGES": "Aucune image",
+            "ITEM_1": "Nom du repas",
+            "ITEM_2": "Prix du repas",
+            "ITEM_3": "Ajouter des accompagnements",
+            "HELP_TEXT": "Séparer les accompagnements par des virgules (,)",
             "SUBMIT_BUTTON": "Valider"
         }
     }

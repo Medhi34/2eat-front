@@ -1,9 +1,9 @@
 <div class="container">
-  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000" mode="ios" animated="true"></ion-searchbar>
+  <ion-searchbar placeholder="{{textLanguage.SEARCHBAR}}" (ionInput)="handleInput($event)" [debounce]="1000" mode="ios" animated="true"></ion-searchbar>
 
   <ion-button expand="block" shape="round" id="form-modal" (click)="openForm()">
     <ion-icon slot="start" name="fast-food"></ion-icon>
-    Ajouter un repas
+    {{textLanguage.ADD_MEAL_BUTTON}}
   </ion-button>
 
   <div *ngIf="!isDone else showMeals">
@@ -26,7 +26,7 @@
         <ion-buttons slot="end">
           <ion-button (click)="cancel()" color="primary">
             <ion-icon slot="end" name="close"></ion-icon>
-            Annuler
+            {{textLanguage.FORM.CANCEL_BUTTON}}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -34,12 +34,12 @@
     <ion-content>
       <div class="container">
         <ion-text class="ion-text-center">
-          <h4>Ajouter un nouveau repas</h4>
+          <h4>{{textLanguage.FORM.TITLE}}</h4>
         </ion-text>
 
         <ion-button (click)="addMealPhotoToGallery()" expand="block" shape="round" id="photo">
           <ion-icon slot="start" name="camera"></ion-icon>
-          Ajouter une photo
+          {{textLanguage.FORM.ADD_BUTTON}}
         </ion-button>
 
         <swiper-container [slidesPerView]="1.2" [centeredSlides]="true" *ngIf="photoService.photos.length != 0 else empty">
@@ -52,27 +52,27 @@
 
         <ng-template #empty>
           <div class="img empty">
-            Aucune image
+            {{textLanguage.FORM.EMPTY_IMAGES}}
           </div>
         </ng-template>
 
         <form [formGroup]="mealForm" (ngSubmit)="confirmAdd()" style="margin: 1rem 0">
           <ion-item lines="none">
             <ion-icon slot="start" name="fast-food-outline"></ion-icon>
-            <ion-input type="text" placeholder="Nom du repas" formControlName="name"></ion-input>
+            <ion-input type="text" placeholder="{{textLanguage.FORM.ITEM_1}}" formControlName="name"></ion-input>
           </ion-item>
   
           <ion-item lines="none">
             <ion-icon slot="start" name="cash-outline"></ion-icon>
-            <ion-input type="number" placeholder="Prix" formControlName="price"></ion-input>
+            <ion-input type="number" placeholder="{{textLanguage.FORM.ITEM_2}}" formControlName="price"></ion-input>
           </ion-item>
 
           <ion-item lines="none">
-            <ion-textarea formControlName="accompagnements" label="Ajouter des accompagnements" labelPlacement="stacked" helperText="Séparer les accompagnements par des virgules (,)"></ion-textarea>
+            <ion-textarea formControlName="accompagnements" label="{{textLanguage.FORM.ITEM_3}}" labelPlacement="stacked" helperText="{{textLanguage.FORM.HELP_TEXT}}"></ion-textarea>
           </ion-item>
 
           <ion-button class="validate" strong="true" type="submit" expand="full" shape="round" [disabled]="mealForm.invalid || photoService.photos.length == 0">
-            Confirmer
+            {{textLanguage.SUBMIT_BUTTON}}
             <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
           </ion-button>
         </form>

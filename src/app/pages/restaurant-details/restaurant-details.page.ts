@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { GeolocalisationService } from 'src/app/services/geolocalisation.service';
 import { DisplayedRestaurant } from 'src/app/models/RestaurantDisplayed';
 import { FileService } from 'src/app/services/file.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-restaurant-details',
@@ -27,11 +28,13 @@ export class RestaurantDetailsPage implements OnInit {
   @ViewChild("modifyLocalisationModal") modifyLocalisationModal!: IonModal;
   @ViewChild("modifyMealsModal") modifyMealsModal!: IonModal;
   newMap!: GoogleMap;
+  textLanguage!:any;
 
   constructor(private api:ApiService, private route:ActivatedRoute, private location:GeolocalisationService, 
-    private actionSheetController: ActionSheetController, private file:FileService) { }
+    private actionSheetController: ActionSheetController, private file:FileService, private translate: TranslateService) { }
 
   ngOnInit() {
+    this.translate.get('RESTAURANT_DETAILS').subscribe((res) => this.textLanguage = res);
     const id = this.route.snapshot.paramMap.get('id') || "null";
     const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
     if(userToken){

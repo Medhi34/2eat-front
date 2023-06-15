@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonModal, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Image } from 'src/app/models/Image';
 import { Meal } from 'src/app/models/Meal';
 import { Order } from 'src/app/models/Order';
@@ -23,11 +24,13 @@ export class MealDetailsPage implements OnInit {
 
   @ViewChild(IonModal) modal!: IonModal;
   order:Order = new Order();
+  textLanguage!:any;
 
   constructor(private api:ApiService, private route:ActivatedRoute, private router:Router, 
-    private toastController: ToastController, private formBuilder:FormBuilder, private file:FileService) { }
+    private toastController: ToastController, private formBuilder:FormBuilder, private file:FileService, private translate:TranslateService) { }
 
   ngOnInit() {
+    this.translate.get('MEAL_DETAILS').subscribe((res) => this.textLanguage = res);
     this.loadData();
     this.orderForm = this.formBuilder.group({
       hot: new FormControl(this.order.hot, Validators.required),
