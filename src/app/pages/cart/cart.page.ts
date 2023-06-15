@@ -13,49 +13,14 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class CartPage implements OnInit, ViewWillEnter {
 
-  @ViewChild(IonModal) modal!:IonModal;
-  total!:number;
-
-  isDone = false;
-  isOffline = false;
-  priceOrders = new Map<string, number>();
-  orders:Order[] = [];
-  results:Order[] = [];
-  textLanguage!:any;
-
-  constructor(private api:ApiService, private translate:TranslateService) { }
-
-  ionViewWillEnter(): void {
-    this.loadData();
-  }
+  constructor() { }
 
   ngOnInit() {
-    this.translate.get('CART').subscribe((res) => this.textLanguage = res);
   }
 
-  loadData(){
-    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
-    if(userToken){
-      this.api.getOrders(userToken.userId)
-      .pipe(
-        catchError((err:HttpErrorResponse) => {
-          if(err.status == 0){
-            this.checkConnectivity();
-          }
-          return of();
-        })
-      )
-      .subscribe((vals:any) => {
-        this.orders = vals;
-        this.results = vals;
-        this.isDone = true;
-        setTimeout(() => {
-          this.updateTotal();
-        }, 200);
-      })
-    }
+  scrollToBottom() {
+   // this.content.scrollToBottom(500);
   }
-
   handleInput(event:any){
     const query = event.target.value.toLowerCase();
     this.results = this.orders.filter((d) => d.meal.name.toLowerCase().indexOf(query) > -1);

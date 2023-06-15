@@ -238,5 +238,6 @@ export class AccountPage implements OnInit, ViewWillEnter, ViewWillLeave {
   
     await alert.present();
   }
+  logout(){}
 
 }
