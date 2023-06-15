@@ -1,10 +1,10 @@
 <div class="container">
-  <img src="" alt="">
-  <ion-text color="primary">
-    <h1>Vous n'êtes pas connecté à internet !</h1>
-    <small>Vérifiez votre connection internent, puis réessayez</small>
+  <ion-icon src="assets/icon/offline-internet-icon.svg" color="primary" size="larger"></ion-icon>
+  <ion-text class="ion-text-center">
+    <h3>{{textLanguage.TITLE}}</h3>
+    <small>{{textLanguage.SUBTITLE}}</small>
   </ion-text>
-  <ion-button expand="block" fill="clear" shape="round">
-    Réessayez
+  <ion-button expand="block" shape="round" (click)="onClick()">
+    {{textLanguage.RETRY_BUTTON}}
   </ion-button>
 </div>

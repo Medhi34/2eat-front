@@ -1,0 +1,93 @@
+<div class="container">
+  <ion-text color="primary" class="ion-text-center">
+    <h3>{{textLanguage.TITLE}}</h3>
+  </ion-text>
+
+  <ion-text class="ion-text-center">
+    <p>{{textLanguage.SUBTITLE}}</p>
+  </ion-text>
+
+  <ion-button expand="block" shape="round" id="open-modal">
+    <ion-icon slot="start" name="fast-food"></ion-icon>
+    {{textLanguage.ADD_MEAL_BUTTON}}
+  </ion-button>
+
+  <div class="meal-container">
+    <div class="meal-card" *ngIf="meals.size == 0 else addedMeal">
+      {{textLanguage.EMPTY_MEAL}}
+    </div>
+    <ng-template #addedMeal>
+      <app-meal-form *ngFor="let meal of meals.values()" [meal]="meal" (delete)="onDeleted($event)"></app-meal-form>
+    </ng-template>
+  </div>
+</div>
+<div class="nav">
+  <ion-button expand="block" shape="round" (click)="onClickPrevious('part2')">
+    {{textLanguage.PREVIOUS_BUTTON}}
+  </ion-button>
+  <ion-button expand="block" shape="round" (click)="onClickNext()" color="secondary" [disabled]="meals.size == 0">
+    {{textLanguage.NEXT_BUTTON}}
+    <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+  </ion-button>
+</div>
+
+<ion-modal trigger="open-modal">
+  <ng-template>
+    <ion-header [translucent]="true" class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cancel()" color="primary">
+            <ion-icon slot="end" name="close"></ion-icon>
+            {{textLanguage.FORM.CANCEL_BUTTON}}
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="container">
+        <ion-text class="ion-text-center">
+          <h4>{{textLanguage.FORM.TITLE}}</h4>
+        </ion-text>
+
+        <ion-button (click)="addMealPhotoToGallery()" expand="block" shape="round">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          {{textLanguage.FORM.ADD_BUTTON}}
+        </ion-button>
+
+        <swiper-container [slidesPerView]="1.2" [centeredSlides]="true" *ngIf="photoService.photos.length != 0 else empty">
+          <swiper-slide *ngFor="let item of photoService.photos">
+            <ion-card>
+              <img src="{{item.webviewPath}}" alt="Image">
+            </ion-card>
+          </swiper-slide>
+        </swiper-container>
+
+        <ng-template #empty>
+          <div class="img empty">
+            {{textLanguage.FORM.EMPTY_IMAGES}}
+          </div>
+        </ng-template>
+
+        <form [formGroup]="mealForm" (ngSubmit)="confirm()" style="margin: 1rem 0">
+          <ion-item lines="none">
+            <ion-icon slot="start" name="fast-food-outline"></ion-icon>
+            <ion-input type="text" placeholder="{{textLanguage.FORM.ITEM_1}}" formControlName="name"></ion-input>
+          </ion-item>
+  
+          <ion-item lines="none">
+            <ion-icon slot="start" name="cash-outline"></ion-icon>
+            <ion-input type="number" placeholder="{{textLanguage.FORM.ITEM_2}}" formControlName="price"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-textarea formControlName="accompagnements" label="{{textLanguage.FORM.ITEM_3}}" labelPlacement="stacked" helperText="{{textLanguage.FORM.HELP_TEXT}}"></ion-textarea>
+          </ion-item>
+
+          <ion-button class="validate" strong="true" type="submit" expand="full" shape="round" [disabled]="mealForm.invalid || photoService.photos.length == 0">
+            {{textLanguage.FORM.SUBMIT_BUTTON}}
+          </ion-button>
+        </form>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

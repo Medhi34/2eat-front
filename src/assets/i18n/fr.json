@@ -29,7 +29,176 @@
             "TITLE": "Aide",
             "ITEM_1": {
                 "LABEL": "Envoyez un rapport"
+            },
+            "ITEM_2": {
+                "LABEL": "A propos"
             }
+        }
+    },
+    "ACCOUNT": {
+        "BACK_BUTTON": "Retour",
+        "MENU": {
+            "ITEM_1": "Mes contributions",
+            "ITEM_2": "Modifier mon adresse",
+            "ITEM_3": "Changer ma photo de profil",
+            "ITEM_4": "Modifier mes informations",
+            "ITEM_5": "Modifier mon mot de passe",
+            "ITEM_6": "Supprimer mon compte"
+        },
+        "CANCEL_BUTTON": "Annuler"
+    },
+    "CART": {
+        "TITLE": "Mes commandes",
+        "SEARCHBAR" : "Rechercher",
+        "EMPTY_CART": "Votre chariot est encore vide !",
+        "CHECKOUT_BUTTON": "Payer"
+    },
+    "CONTRIBUTION": {
+        "TITLE":"Mes contributions",
+        "SEARCHBAR": "Rechercher"
+    },
+    "CONTRIBUTION_FORM": {
+        "TITLE": "Nouvelle contribution",
+        "NEED_TIME_INFOS": "Vous aurez besoin de 5 à 15 minutes pour pouvoir terminer votre contribution. Vérifier également votre connexion avant de commencer.",
+        "START_BUTTON": "Commencer",
+        "NEED_ACCOUNT_INFOS": "Vous avez besoin d'être connecté à un compte pour pouvoir contribuer.",
+        "LOGIN_BUTTON": "Se connecter",
+        "LOADING": {
+            "TITLE": "Enregistrement de votre contribution",
+            "STEP1": "Collecte des données",
+            "STEP2": "Enregistrement du restaurant",
+            "STEP3": "Enregistrement du menu"
+        },
+        "END":{
+            "TITLE": "Merci pour votre contribution",
+            "LIST_BUTTON": "Voir la liste"
+        }
+    },
+    "LOGIN": {
+        "BACK_BUTTON": "Retour",
+        "TITLE": "2EAT - Connexion",
+        "SUBTITLE": "Connectez-vous à votre compte",
+        "FORM": {
+            "ITEM_1": "Email",
+            "ITEM_2": "Mot de passe",
+            "SUBMIT_BUTTON": "Connexion",
+            "NEED_ACCOUNT": {
+                "PART1": "Pas encore de compte ?",
+                "PART2": "S'inscrire"
+            }
+        },
+        "CANCEL_BUTTON": "Annuler"
+    },
+    "MEAL_DETAILS": {
+        
+    },
+    "RESTAURANT_DETAILS": {
+        
+    },
+    "FAVOURITE": {
+        
+    },
+    "HOME": {
+        
+    },
+    "SEARCH": {
+        
+    },
+    "NO_CONNECT": {
+        "TITLE": "Vous n'êtes pas connecté à internet !",
+        "SUBTITLE": "Vérifiez votre connection internet, puis réessayez.",
+        "RETRY_BUTTON": "Réessayez"
+    },
+    "MAP_LOCALISATION": {
+        "TEXT": "Choisissez un emplacement sur la carte",
+        "SUBMIT_BUTTON": "Valider"
+    },
+    "CHANGE_PASSWORD": {
+        "TITLE": "Mise à jour du mot de passe",
+        "FORM": {
+            "ITEM_1": "Entrez l'ancien mot de passe",
+            "ITEM_2": "Entrez le nouveau mot de passe",
+            "ITEM_3": "Retapez le nouveau mot de passe"
+        },
+        "SUBMIT_BUTTON": "Valider"
+    },
+    "CHANGE_INFOS": {
+        "TITLE": "Mise à jour des informations",
+        "FORM": {
+            "ITEM_1": "Nom complet",
+            "ITEM_2": "Téléphone",
+            "ITEM_3": "Email"
+        },
+        "SUBMIT_BUTTON": "Valider"
+    },
+    "CHANGE_PROFIL": {
+        "ADD_BUTTON": "Prendre une photo",
+        "SUBMIT_BUTTON": "Valider"
+    },
+    "CART_ITEM": {
+        "HOT_MEAL": "Plat(s) servi chaud",
+        "COLD_MEAL": "Plat(s) servi froid",
+        "SPICED_MEAL": "Plat(s) pimenté(s)",
+        "NOTSPICED_MEAL": "Plat(s) non pimenté(s)"
+    },
+    "STEP1_CONTRIBUTION": {
+        "TITLE": "Etape 1",
+        "ITEM_1": "Nom du restaurant",
+        "ITEM_2": "Numéro de téléphone",
+        "SELECT_POSITION": "Choisissez un emplacement sur la carte",
+        "PREVIOUS_BUTTON": "Précedent",
+        "NEXT_BUTTON": "Précedent"
+    },
+    "STEP2_CONTRIBUTION": {
+        "TITLE": "Etape 2",
+        "SELECT_CATEGORIES": {
+            "TITLE": "Choisissez une catégorie",
+            "CATEGORY_1": "Street-food",
+            "CATEGORY_2": "Fast-food",
+            "CATEGORY_3": "Caféteria",
+            "CATEGORY_4": "Café-Resto",
+            "CATEGORY_5": "Restaurant Classique",
+            "CATEGORY_6": "Cuisine Traditionnelle"
+        },
+        "ADD_BUTTON": "Prendre une photo",
+        "EMPTY_IMAGES": "Aucune image",
+        "PREVIOUS_BUTTON": "Précedent",
+        "NEXT_BUTTON": "Précedent"
+    },
+    "STEP3_CONTRIBUTION": {
+        "TITLE": "Etape 3",
+        "SUBTITLE": "Enregistrons à présent les repas",
+        "ADD_MEAL_BUTTON": "Ajouter un repas",
+        "EMPTY_MEAL": "Aucun repas",
+        "PREVIOUS_BUTTON": "Précedent",
+        "NEXT_BUTTON": "Précedent",
+        "FORM": {
+            "CANCEL_BUTTON": "Annuler",
+            "TITLE": "Ajouter un repas",
+            "ADD_BUTTON": "Prendre une photo",
+            "EMPTY_IMAGES": "Aucune image",
+            "ITEM_1": "Nom du repas",
+            "ITEM_2": "Prix du repas",
+            "ITEM_3": "Ajouter des accompagnements",
+            "HELP_TEXT": "Séparer les accompagnements par des virgules (,)",
+            "SUBMIT_BUTTON": "Valider"
+        }
+    },
+    "MEAL_FORM": {
+        "ACCOMPAGNEMENTS_TEXT": "Les accompagnements possibles",
+        "CANCEL_BUTTON": "Annuler",
+        "DELETE_BUTTON": "Supprimer"
+    },
+    "ACCOUNT_FORM": {
+        "TITLE": "2EAT - Inscription",
+        "SUBTITLE": "Crée un compte et bénéficie de toutes les fonctionnalités",
+        "ERROR_MSG": "Email déjà existant !",
+        "FORM": {
+            "ITEM_1": "Nom complet",
+            "ITEM_2": "Email",
+            "ITEM_3": "Mot de passe",
+            "ITEM_4": "Téléphone",
+            "SUBMIT_BUTTON": "Valider"
         }
     }
 }

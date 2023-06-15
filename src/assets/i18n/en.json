@@ -29,6 +29,9 @@
             "TITLE": "Help",
             "ITEM_1": {
                 "LABEL": "Send reports"
+            },
+            "ITEM_2": {
+                "LABEL": "About"
             }
         }
     }

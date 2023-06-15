@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BASE_URL } from '../models/url_api';
 import { Login, User } from '../models/User';
+import { Appreciation } from '../models/Appreciation';
+import { Order } from '../models/Order';
+import { Restaurant } from '../models/Restaurant';
 
 @Injectable({
   providedIn: 'root'
@@ -69,7 +72,13 @@ export class ApiService {
     return this.http.get(`${BASE_URL}/users/${id}`);
   }
 
+  getOrders(id:string){
+    return this.http.get(`${BASE_URL}/users/${id}/orders`);
+  }
 
+  getUserContributions(id:string){
+    return this.http.get(`${BASE_URL}/users/${id}/restaurants`);
+  }
 
   /*======================= POST METHOD =======================*/
 
@@ -85,7 +94,120 @@ export class ApiService {
     return this.http.post(`${BASE_URL}/users/signup`, formData);
   }
 
+  createRestaurant(formData:FormData){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.post(`${BASE_URL}/restaurants/`, formData, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  createMeal(formData:FormData, idRes:string){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.post(`${BASE_URL}/meals/${idRes}/`, formData, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  saveOrder(order:Order, mealId:string){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.post(`${BASE_URL}/orders/${mealId}/`, order, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  saveComment(appreciation:Appreciation){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.post(`${BASE_URL}/appreciations/`, appreciation, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
   /*======================= PUT METHOD =======================*/
 
+  updateComment(appreciation:Appreciation){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.put(`${BASE_URL}/appreciations/${appreciation._id}`, appreciation, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  updateRestaurant(restaurant:Restaurant){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.put(`${BASE_URL}/restaurants/${restaurant._id}`, restaurant, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  updateRestaurantWithFormData(formData:FormData, id:string){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.put(`${BASE_URL}/restaurants/${id}/images`, formData, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  updateUserWithFormData(formData:FormData, id:string){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.put(`${BASE_URL}/users/${id}/image`, formData, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  updateUser(user:User){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.put(`${BASE_URL}/users/${user._id}`, user, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
   /*======================= DELETE METHOD =======================*/
+
+  deleteComment(id:string){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.delete(`${BASE_URL}/appreciations/${id}`, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  deleteOrder(id:string){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.delete(`${BASE_URL}/orders/${id}`, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  deleteMeal(idRes:string, id:string){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.delete(`${BASE_URL}/meals/${idRes}/${id}`, {
+      headers: {
+        "Authorization": `Bearer ${userToken.token}`
+      }
+    });
+  }
+
+  deleteUser(id:string){
+    const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
+    return this.http.delete(`${BASE_URL}/users/${id}`);
+  }
 }

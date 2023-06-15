@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title size="large" class="title">Mes commandes</ion-title>
+    <ion-title size="large" class="title">{{textLanguage.TITLE}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/" icon="caret-back" color="primary"></ion-back-button>
     </ion-buttons>
@@ -8,71 +8,59 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000" mode="ios" animated="true"></ion-searchbar>
 
-  <div class="context">
-    <div class="container">
-      <app-cart-item></app-cart-item>
-      <app-cart-item></app-cart-item>
-      <app-cart-item></app-cart-item>
-      <app-cart-item></app-cart-item>
-    </div>
+  <app-no-connection *ngIf="isOffline else online" (onClickTry)="onClickTry($event)"></app-no-connection>
 
-    <footer>
-      <ion-grid fixed class="total-bill">
-        <ion-row>
-          <ion-col size="8" class="price">
-            <h3>Total : XXXX Fcfa</h3>
-          </ion-col>
-          <ion-col size="4">
-            <ion-button expand="block" shape="round" color="dark">
-              Payer
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </footer>
-  </div>
+  <ng-template #online>
+    <ion-searchbar placeholder="{{textLanguage.SEARCHBAR}}" (ionInput)="handleInput($event)" [debounce]="1000" mode="ios" animated="true"></ion-searchbar>
+
+    <app-cart-skeleton *ngIf="!isDone else show"></app-cart-skeleton>
+
+    <ng-template #show>
+      <div class="context">
+        <ion-icon src="/assets/icon/delete-from-trolley-icon.svg" color="primary" style="font-size: 7rem; margin-left: calc(100%/2 - 3.5rem);"></ion-icon>
+        <ion-text *ngIf="results.length == 0 else show_content" class="ion-text-center">
+          <h4>{{textLanguage.EMPTY_CART}}</h4>
+        </ion-text>
+        <ng-template #show_content>
+          <div class="container">
+            <app-cart-item *ngFor="let order of results" [order]="order" (onPriceUpdated)="onPriceUpdated($event)" (onDelete)="onDeleteOrder($event)"></app-cart-item>
+          </div>
+      
+          <footer>
+            <ion-grid fixed class="total-bill">
+              <ion-row>
+                <ion-col size="8" class="price">
+                  <h3>Total : {{total}} Fcfa</h3>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-button expand="block" shape="round" color="dark">
+                    {{textLanguage.CHECKOUT_BUTTON}}
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </footer>
+        </ng-template>
+      </div>
+    </ng-template>
+  </ng-template>
+
 </ion-content>
 
-<ion-footer *ngIf="model?.restaurant">
-  <ion-toolbar>
-    <ion-row *ngIf="!location?.lat">
-      <ion-col size="6">
-        <ion-button expand="block" fill="outline" color="success" (click)="addAddress()">
-          Ajouter une Addresse 
-        </ion-button>
-      </ion-col>
-      <ion-col size="6">
-        <ion-button expand="block" color="success" (click)="changeAddress()">
-          Modifier une Adresse
-        </ion-button>
-      </ion-col>
-    </ion-row>    
-    <ion-item lines="none" *ngIf="location?.lat">
-      <ion-button slot="end" size="small" fill="clear" (click)="changeAddress()">Modifier</ion-button>
-      <ion-icon slot="start" name="home-outline"></ion-icon>
-      <ion-label>
-        <h5>Livraison à Domicile</h5>
-        <ion-text color="medium"><p>Nkolbisson, Yaoundé</p></ion-text>
-      </ion-label>
-    </ion-item>
-    <ion-row *ngIf="location?.lat">
-      <ion-col size="6" class="ion-no-padding" (click)="scrollToBottom()">
-        <ion-item lines="none" color="light" class="ion-no-padding">
-          <ion-label>
-            <h6>₹{{model?.grandTotal}}</h6>
-            <ion-text color="secondary">
-              Voir Les Details De La Facture 
-              <ion-icon name="chevron-down-outline"></ion-icon>
-            </ion-text>
-          </ion-label>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6" class="ion-text-center colStyle" (click)="makePayment()">
-        <ion-button color="white" fill="clear">Effectuer Le Paiements </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer>
-
+<ion-modal>
+  <ng-template>
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-no-connection (onClickTry)="onClickTry($event)"></app-no-connection>
+    </ion-content>
+  </ng-template>
+</ion-modal>

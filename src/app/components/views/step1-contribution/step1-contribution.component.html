@@ -1,0 +1,26 @@
+<form [formGroup]="step1Form">
+  <div class="container">
+    <ion-text color="primary" class="ion-text-center">
+      <h3>{{textLanguage.TITLE}}</h3>
+    </ion-text>
+    <ion-item class="input" lines="none">
+      <ion-icon name="storefront-outline" slot="start"></ion-icon>
+      <ion-input type="text" label="{{textLanguage.ITEM_1}}" labelPlacement="floating" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item class="input" lines="none">
+      <ion-icon name="call-outline" slot="start"></ion-icon>
+      <ion-input type="number" label="{{textLanguage.ITEM_2}}" labelPlacement="floating" formControlName="phone"></ion-input>
+    </ion-item>
+    <p>{{textLanguage.SELECT_POSITION}}</p>
+  </div>
+  <capacitor-google-map id="map" (click)="onClickMap()"></capacitor-google-map>
+  <div class="nav">
+    <ion-button expand="block" shape="round" (click)="onClickPrevious('start')">
+      {{textLanguage.PREVIOUS_BUTTON}}
+    </ion-button>
+    <ion-button expand="block" shape="round" (click)="onClickNext()" [disabled]="!step1Form.valid">
+      {{textLanguage.NEXT_BUTTON}}
+      <ion-spinner name="circular" *ngIf="isLoading" ></ion-spinner>
+    </ion-button>
+  </div>
+</form>

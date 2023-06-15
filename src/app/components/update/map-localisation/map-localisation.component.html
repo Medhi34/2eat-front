@@ -1,0 +1,10 @@
+<div class="container">
+  <ion-text>
+    <p>{{textLanguage.TEXT}}</p>
+  </ion-text>
+  <capacitor-google-map id="google-map" (click)="onClickMap()"></capacitor-google-map>
+  <ion-button expand="block" shape="round" (click)="confirm()">
+    {{textLanguage.SUBMIT_BUTTON}}
+    <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+  </ion-button>
+</div>

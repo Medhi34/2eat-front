@@ -1,0 +1,28 @@
+<div class="container">
+  <ion-button (click)="addPhotoToGallery()" expand="block" shape="round" color="tertiary" class="btn">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    Ajouter une photo
+  </ion-button>
+
+  <div class="container-images">
+    <div class="image" *ngFor="let item of photoService.photos">
+      <ion-img [src]="item.webviewPath"></ion-img>
+      <ion-button (click)="onDeletePhotos()" shape="round" fill="clear" class="ion-no-padding">
+        <ion-icon slot="icon-only" name="trash" color="pastel-red"></ion-icon>
+      </ion-button>
+    </div>
+    <div *ngFor="let item of images | keyvalue">
+      <div class="image" *ngIf="item.value.isActive">
+        <ion-img [src]="item.value.url"></ion-img>
+        <ion-button (click)="onDelete(item)" shape="round" fill="clear" class="ion-no-padding">
+          <ion-icon slot="icon-only" name="trash" color="pastel-red"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+  <ion-button (click)="confirm()" expand="block" shape="round" class="btn" [disabled]="nbImages == 0 && photoService.photos.length == 0">
+    Valider
+    <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+  </ion-button>
+</div>

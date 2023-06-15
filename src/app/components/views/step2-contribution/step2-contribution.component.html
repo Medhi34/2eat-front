@@ -1,0 +1,46 @@
+<div class="container">
+  <ion-text color="primary" class="ion-text-center">
+    <h3>{{textLanguage.TITLE}}</h3>
+  </ion-text>
+
+  <form [formGroup]="step2Form">
+    <ion-item lines="none" class="input">
+      <ion-select value="" multiple="true" label="{{textLanguage.SELECT_CATEGORIES.TITLE}}" labelPlacement="floating" formControlName="categories">
+        <ion-select-option value="Street-food">{{textLanguage.SELECT_CATEGORIES.CATEGORY_1}}</ion-select-option>
+        <ion-select-option value="Fast-food">{{textLanguage.SELECT_CATEGORIES.CATEGORY_2}}</ion-select-option>
+        <ion-select-option value="Caféteria">{{textLanguage.SELECT_CATEGORIES.CATEGORY_3}}</ion-select-option>
+        <ion-select-option value="Café-Resto">{{textLanguage.SELECT_CATEGORIES.CATEGORY_4}}</ion-select-option>
+        <ion-select-option value="Restaurant Classique">{{textLanguage.SELECT_CATEGORIES.CATEGORY_5}}</ion-select-option>
+        <ion-select-option value="Cuisine Traditionnelle">{{textLanguage.SELECT_CATEGORIES.CATEGORY_6}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+
+  <ion-button (click)="addPhotoToGallery()" expand="block" shape="round">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    {{textLanguage.ADD_BUTTON}}
+  </ion-button>
+
+  <swiper-container [slidesPerView]="1.2" [centeredSlides]="true" *ngIf="photoService.photos.length != 0 else empty">
+    <swiper-slide *ngFor="let item of photoService.photos">
+      <ion-card>
+        <img src="{{item.webviewPath}}" alt="Image">
+      </ion-card>
+    </swiper-slide>
+  </swiper-container>
+  <ng-template #empty>
+    <div class="img empty">
+      {{textLanguage.EMPTY_IMAGES}}
+    </div>
+  </ng-template>
+
+</div>
+<div class="nav">
+  <ion-button expand="block" shape="round" (click)="onClickPrevious('part1')">
+    {{textLanguage.PREVIOUS_BUTTON}}
+  </ion-button>
+  <ion-button expand="block" shape="round" (click)="onClickNext()" [disabled]="photoService.photos.length == 0 || step2Form.invalid">
+    {{textLanguage.NEXT_BUTTON}}
+    <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+  </ion-button>
+</div>

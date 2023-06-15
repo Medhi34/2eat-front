@@ -1,0 +1,15 @@
+.container{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    ion-icon{
+        font-size: 5rem;
+    }
+    ion-button{
+        --padding-top: 1.5rem;
+        --padding-bottom: 1.5rem;
+        margin: 1rem 0;
+    }
+}

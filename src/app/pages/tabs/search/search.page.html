@@ -5,25 +5,47 @@
       <ion-menu-button menu="main-content"></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <app-cart-buttons></app-cart-buttons>
+      <app-cart-buttons *ngIf="isConnected" [userId]="userId"></app-cart-buttons>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-segment [scrollable]="true" value="{{selectedSegment}}" mode="ios">
-    <ion-segment-button *ngFor="let name of ['Tous', 'Restaurant']" value="{{name}}" (click)="segmentChosen(name)">
-      <ion-label>{{name}}</ion-label>
-    </ion-segment-button>
-  </ion-segment>
 
-  <span *ngIf="selectedSegment === 'Tous' then meal else restaurant"></span>
-
-  <ng-template #meal>
-    <app-search-meal [displayedPage]="'search'"></app-search-meal>
+  <app-no-connection *ngIf="isOffline else online" (onClickTry)="onClickTry($event)"></app-no-connection>
+  
+  <ng-template #online>
+    <ion-segment [scrollable]="true" value="{{selectedSegment}}" mode="ios">
+      <ion-segment-button *ngFor="let name of ['Tous', 'Restaurant']" value="{{name}}" (click)="segmentChosen(name)">
+        <ion-label>{{name}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  
+    <span *ngIf="selectedSegment === 'Tous' then meal else restaurant"></span>
+  
+    <ng-template #meal>
+      <app-search-meal [displayedPage]="'search'" (checkisOnline)="checkConnectivity($event)"></app-search-meal>
+    </ng-template>
+    <ng-template #restaurant>
+      <app-search-restaurant (checkisOnline)="checkConnectivity($event)"></app-search-restaurant>
+    </ng-template> 
   </ng-template>
-  <ng-template #restaurant>
-    <app-search-restaurant></app-search-restaurant>
-  </ng-template>  
 
 </ion-content>
+
+<ion-modal>
+  <ng-template>
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-no-connection (onClickTry)="onClickTry($event)"></app-no-connection>
+    </ion-content>
+  </ng-template>
+</ion-modal>

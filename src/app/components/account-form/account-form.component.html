@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="photo-container">
+    <ion-button (click)="addPhotoToGallery()">
+      <ion-icon slot="icon-only" name="camera"></ion-icon>
+    </ion-button>
+    <ion-img *ngIf="photoService.photos.length != 0" [src]="photoService.photos[0].webviewPath"></ion-img>
+  </div>
+  
+  <ion-text class="ion-text-center">
+    <h4>{{textLanguage.TITLE}}</h4>
+    <small>{{textLanguage.SUBTITLE}}</small>
+  </ion-text>
+
+  <span class="errorMsg" *ngIf="msgError != '' ">{{msgError}}</span>
+
+  <form [formGroup]="registerForm" (ngSubmit)="confirm()">
+    <ion-item lines="none" class="input">
+      <ion-icon slot="start" name="person-outline"></ion-icon>
+      <ion-input type="text" placeholder="{{textLanguage.FORM.ITEM_1}}" formControlName="fullname" helperText="Prénom & Nom"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input">
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      <ion-input type="email" placeholder="{{textLanguage.FORM.ITEM_2}}" formControlName="email" helperText="exemple: xyz@exemple.com"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input">
+      <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+      <ion-input type="password" placeholder="{{textLanguage.FORM.ITEM_3}}" clearOnEdit="true" formControlName="password" helperText="Minimum 8 caractères"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input">
+      <ion-icon slot="start" name="call-outline"></ion-icon>
+      <ion-input type="number" placeholder="{{textLanguage.FORM.ITEM_4}}" formControlName="phone" helperText="Ex: 699 00 00 90"></ion-input>
+    </ion-item>
+    
+    <ion-button class="validate" strong="true" type="submit" expand="full" shape="round" [disabled]="!registerForm.valid">
+      {{textLanguage.FORM.SUBMIT_BUTTON}}
+      <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+    </ion-button>
+  </form>
+</div>

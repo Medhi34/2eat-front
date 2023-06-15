@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
-import { Preferences } from '@capacitor/preferences';
 import { UserPhoto } from '../models/Photo';
 
 @Injectable({
@@ -37,7 +36,7 @@ export class PhotoService {
     const base64Data = await this.readAsBase64(photo);
   
     // Write the file to the data directory
-    const fileName = new Date().getTime() + '.jpeg';
+    const fileName = "2eat-images-" + new Date().getTime() + '.jpeg';
     const savedFile = await Filesystem.writeFile({
       path: fileName,
       data: base64Data,

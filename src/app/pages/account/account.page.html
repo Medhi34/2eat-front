@@ -1,91 +1,153 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" icon="caret-back" color="tertiary" text="Retour"></ion-back-button>
+      <ion-back-button defaultHref="/" icon="caret-back" color="tertiary" text="{{textLanguage.BACK_BUTTON}}"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content [fullscreen]="true">
-  <span *ngIf="isDone then userAccount else skeleton"></span>
 
-  <ng-template #skeleton>
-    <div class="map-skeleton">
-      <ion-skeleton-text animated style="width: 100%; height: 100%;"></ion-skeleton-text>
-    </div>
-    <div class="container">
-      <header>
-        <ion-skeleton-text animated class="img"></ion-skeleton-text>
-        <div style="width: 60%;">
-          <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 100%;"></ion-skeleton-text>
-          <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
-        </div>
-      </header>
-      <div class="main">
-        <ion-list>
-          <ion-item lines="none">
-            <ion-skeleton-text animated style="width: 60%; height: 50%;"></ion-skeleton-text>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-skeleton-text animated style="width: 100%; height: 50%;"></ion-skeleton-text>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-skeleton-text animated style="width: 70%; height: 50%;"></ion-skeleton-text>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-skeleton-text animated style="width: 90%; height: 50%;"></ion-skeleton-text>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-skeleton-text animated style="width: 80%; height: 50%;"></ion-skeleton-text>
-          </ion-item>
-        </ion-list>
-      </div>
-    </div>
-  </ng-template>
+  <app-no-connection *ngIf="isOffline else online" (onClickTry)="onClickTry($event)"></app-no-connection>
 
-  <ng-template #userAccount>
-    <capacitor-google-map id="map"></capacitor-google-map>
-  
-    <div class="container">
-      <header>
-        <img class="img" alt="User image" *ngIf="user.imageUrl != '' else noProfilePhoto"src="{{user.imageUrl}}" />
-        <ng-template #noProfilePhoto>
-          <img class="img" alt="Silhouette of a person's head" src="/assets/img/user-profile.png" />
-        </ng-template>
-        <div>
-          <ion-text>
-            <h2>{{user.fullname | titlecase}}</h2>
-            <h4>+237 {{user.phone}}</h4>
-            <h6>{{user.localisation.city}}, {{user.localisation.area}}</h6>
-          </ion-text>
+  <ng-template #online>
+    <span *ngIf="isDone then userAccount else skeleton"></span>
+    <ng-template #skeleton>
+      <app-account-skeleton></app-account-skeleton>
+    </ng-template>
+    <ng-template #userAccount>
+      <capacitor-google-map id="map"></capacitor-google-map>
+    
+      <div class="container">
+        <header>
+          <img class="img" alt="User image" src="{{user.imageUrl}}" />
+          <div>
+            <ion-text>
+              <h2>{{user.fullname | titlecase}}</h2>
+              <h4>+237 {{user.phone}}</h4>
+              <h6>{{user.localisation.city}}, {{user.localisation.area}}</h6>
+            </ion-text>
+          </div>
+        </header>
+        <div class="main">
+          <ion-list>
+            <ion-item lines="full" button [routerLink]="['/contributions']">
+              <ion-icon src="assets/icon/restaurant-waiter-icon.svg" slot="start"></ion-icon>
+              <ion-label>{{textLanguage.MENU.ITEM_1}}</ion-label>
+            </ion-item>
+            <ion-item lines="full" button (click)="presentModal('position')">
+              <ion-icon name="location-outline" slot="start"></ion-icon>
+              <ion-label>{{textLanguage.MENU.ITEM_2}}</ion-label>
+            </ion-item>
+            <ion-item lines="full" button (click)="presentModal('profil')">
+              <ion-icon name="image-outline" slot="start"></ion-icon>
+              <ion-label>{{textLanguage.MENU.ITEM_3}}</ion-label>
+            </ion-item>
+            <ion-item lines="full" button (click)="presentModal('email')">
+              <ion-icon name="person-outline" slot="start"></ion-icon>
+              <ion-label>{{textLanguage.MENU.ITEM_4}}</ion-label>
+            </ion-item>
+            <ion-item lines="full" button (click)="presentModal('password')">
+              <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+              <ion-label>{{textLanguage.MENU.ITEM_5}}</ion-label>
+            </ion-item>
+            <ion-item lines="none" button (click)="presentAlert()">
+              <ion-icon name="trash-outline" slot="start" color="primary"></ion-icon>
+              <ion-label>{{textLanguage.MENU.ITEM_6}}</ion-label>
+            </ion-item>
+          </ion-list>
         </div>
-      </header>
-      <div class="main">
-        <ion-list>
-          <ion-item lines="full" button>
-            <ion-icon name="location-outline" slot="start"></ion-icon>
-            <ion-label>Modifier mon adresse</ion-label>
-          </ion-item>
-          <ion-item lines="full" button>
-            <ion-icon name="image-outline" slot="start"></ion-icon>
-            <ion-label>Changer ma photo de profil</ion-label>
-          </ion-item>
-          <ion-item lines="full" button>
-            <ion-icon name="at-outline" slot="start"></ion-icon>
-            <ion-label>Modifier mon email</ion-label>
-          </ion-item>
-          <ion-item lines="full" button>
-            <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-            <ion-label>Modifier mon mot de passe</ion-label>
-          </ion-item>
-          <ion-item lines="none" button>
-            <ion-icon name="trash-outline" slot="start" color="primary"></ion-icon>
-            <ion-label>Supprimer mon compte</ion-label>
-          </ion-item>
-        </ion-list>
       </div>
-    </div>
+    </ng-template>
   </ng-template>
 </ion-content>
+
+<ion-modal #offlineModal>
+  <ng-template>
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-no-connection (onClickTry)="onClickTry($event)"></app-no-connection>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal #modifyPositionModal>
+  <ng-template>
+    <ion-header [translucent]="true" class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cancel('position')" color="primary">
+            <ion-icon slot="end" name="close"></ion-icon>
+            {{textLanguage.CANCEL_BUTTON}}
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-map-localisation (onConfirm)="onChangeLocalisation($event)"></app-map-localisation>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal #modifyPasswordModal [initialBreakpoint]=".75" [breakpoints]="[0, .75, 1]">
+  <ng-template>
+    <ion-header [translucent]="true" class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cancel('password')" color="primary">
+            <ion-icon slot="end" name="close"></ion-icon>
+            {{textLanguage.CANCEL_BUTTON}}
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-change-password (onConfirm)="onChangePassword($event)"></app-change-password>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal #modifyEmailModal [initialBreakpoint]=".75" [breakpoints]="[0, .75, 1]">
+  <ng-template>
+    <ion-header [translucent]="true" class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cancel('email')" color="primary">
+            <ion-icon slot="end" name="close"></ion-icon>
+            {{textLanguage.CANCEL_BUTTON}}
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-change-email [user]="user" (onConfirm)="onChangeInfos($event)"></app-change-email>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal #modifyProfilModal [initialBreakpoint]=".75" [breakpoints]="[0, .75, 1]">
+  <ng-template>
+    <ion-header [translucent]="true" class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cancel('profil')" color="primary">
+            <ion-icon slot="end" name="close"></ion-icon>
+            {{textLanguage.CANCEL_BUTTON}}
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-change-profil [imageUrl]="user.imageUrl" (onConfirm)="onChangeProfil($event)"></app-change-profil>
+    </ion-content>
+  </ng-template>
+</ion-modal>

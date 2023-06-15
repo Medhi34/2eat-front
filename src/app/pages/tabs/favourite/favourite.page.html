@@ -5,11 +5,33 @@
       <ion-menu-button menu="main-content"></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <app-cart-buttons></app-cart-buttons>
+      <app-cart-buttons *ngIf="isConnected" [userId]="userId"></app-cart-buttons>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-search-meal></app-search-meal>
+
+  <app-no-connection *ngIf="isOffline else online" (onClickTry)="onClickTry($event)"></app-no-connection>
+
+  <ng-template #online>
+    <app-search-meal (checkisOnline)="checkConnectivity($event)" displayedPage="favourite"></app-search-meal>
+  </ng-template>
 </ion-content>
+
+<ion-modal>
+  <ng-template>
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-no-connection (onClickTry)="onClickTry($event)"></app-no-connection>
+    </ion-content>
+  </ng-template>
+</ion-modal>

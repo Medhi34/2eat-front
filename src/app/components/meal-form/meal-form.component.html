@@ -1,0 +1,43 @@
+<ion-card *ngIf="!isMeal else mealShow">
+  <ion-img [src]="meal?.images[0].webviewPath"></ion-img>
+  <ion-card-header>
+    <ion-card-title>{{meal.name | titlecase}}</ion-card-title>
+    <ion-card-subtitle>{{meal.price}} Fcfa</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-text class="ion-text-center">
+      <p>{{textLanguage.ACCOMPAGNEMENTS_TEXT}}</p>
+    </ion-text>
+    <ion-item *ngFor="let acc of meal?.accompagnements">
+      <ion-icon name="menu" slot="start"></ion-icon>
+      <ion-label>{{acc}}</ion-label>
+    </ion-item>
+  </ion-card-content>
+  <ion-button (click)="onClickDel()" expand="block" class="del">
+    <ion-icon slot="end" name="close"></ion-icon>
+    {{textLanguage.CANCEL_BUTTON}}
+  </ion-button>
+</ion-card>
+
+<ng-template #mealShow>
+  <ion-card>
+    <ion-img [src]="meal.images.values().next().value.url"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{meal.name}}</ion-card-title>
+      <ion-card-subtitle>{{meal.price}} Fcfa</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-text class="ion-text-center">
+        <p>{{textLanguage.ACCOMPAGNEMENTS_TEXT}}</p>
+      </ion-text>
+      <ion-item *ngFor="let acc of meal?.accompagnements">
+        <ion-icon name="menu" slot="start"></ion-icon>
+        <ion-label>{{acc}}</ion-label>
+      </ion-item>
+    </ion-card-content>
+    <ion-button (click)="onClickDel()" expand="block" class="del">
+      <ion-icon slot="end" name="trash"></ion-icon>
+      {{textLanguage.DELETE_BUTTON}}
+    </ion-button>
+  </ion-card>
+</ng-template>

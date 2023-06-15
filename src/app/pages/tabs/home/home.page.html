@@ -2,73 +2,92 @@
   <ion-toolbar>
     <ion-title class="title">2EAT</ion-title>
     <ion-buttons slot="end" *ngIf="!isNotDone">
-      <app-cart-buttons></app-cart-buttons>
+      <app-cart-buttons *ngIf="isConnected" [userId]="user._id"></app-cart-buttons>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="container">
 
-    <span *ngIf="isNotDone then skeleton else home"></span>
+  <app-no-connection *ngIf="isOffline else online" (onClickTry)="onClickTry($event)"></app-no-connection>
 
-    <ng-template  #skeleton>
-      <app-home-skeleton></app-home-skeleton>
-    </ng-template>
+  <ng-template #online>
+    <div class="container">
 
-    <ng-template #home>
-      <span *ngIf="isConnected then connected else notConnected"></span>
-      <ng-template #connected>
-        <ion-item lines="none" color="transparent" class="greating-card">
-          <ion-avatar slot="end" [routerLink]="['/account']">
-            <img alt="User image" *ngIf="user.imageUrl != '' else noProfilePhoto"src="{{user.imageUrl}}" />
-            <ng-template #noProfilePhoto>
-              <img alt="Silhouette of a person's head" src="/assets/img/user-profile.png" />
-            </ng-template>
-          </ion-avatar>
-          <ion-label>
-            <h4>Salut</h4>
-            <h2>{{user.fullname | titlecase}}</h2>
-          </ion-label>
-        </ion-item>
+      <span *ngIf="isNotDone then skeleton else home"></span>
+  
+      <ng-template  #skeleton>
+        <app-home-skeleton></app-home-skeleton>
       </ng-template>
-
-      <ng-template #notConnected>
-        <ion-item lines="none" color="transparent" class="greating-card">
-          <ion-avatar slot="end" [routerLink]="['/login']">
-            <img alt="Silhouette of a person's head" src="/assets/icon/avatar.svg" />
-          </ion-avatar>
-          <ion-label>
-            <h4>Hey</h4>
-            <h2>Connecte-toi !</h2>
-          </ion-label>
-        </ion-item>
+  
+      <ng-template #home>
+  
+        <span *ngIf="isConnected then connected else notConnected"></span>
+        <ng-template #connected>
+          <ion-item lines="none" color="transparent" class="greating-card">
+            <ion-avatar slot="end" [routerLink]="['/account']">
+              <img alt="User image" *ngIf="user.imageUrl != '' else noProfilePhoto"src="{{user.imageUrl}}" />
+              <ng-template #noProfilePhoto>
+                <img alt="Silhouette of a person's head" src="/assets/img/user-profile.png" />
+              </ng-template>
+            </ion-avatar>
+            <ion-label>
+              <h4>Salut</h4>
+              <h2>{{user.fullname | titlecase}}</h2>
+            </ion-label>
+          </ion-item>
+        </ng-template>
+  
+        <ng-template #notConnected>
+          <ion-item lines="none" color="transparent" class="greating-card">
+            <ion-avatar slot="end" [routerLink]="['/login']">
+              <img alt="Silhouette of a person's head" src="/assets/icon/avatar.svg" />
+            </ion-avatar>
+            <ion-label>
+              <h4>Hey</h4>
+              <h2>Connecte-toi !</h2>
+            </ion-label>
+          </ion-item>
+        </ng-template>
+  
+        <ion-card color="pastel-red" class="banner">
+          <ion-card-header>
+            <ion-card-title>2EAT FOOD</ion-card-title>
+            <ion-card-subtitle>Découvre les boins coins proche de toi</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            Toi aussi particpe à l'aventure en proposant de nouveaux emplacement, et gagne des pourcentages de réductions.
+          </ion-card-content>
+          <ion-button color="dark" [routerLink]="['/contributions-form']">Contribuer</ion-button>
+        </ion-card>
+  
+        <ion-list>
+          <ion-list-header>
+            <ion-label>
+              <h2>Parcourir les restaurants</h2>
+            </ion-label>
+            <ion-button [routerLink]="['/tabs/search', 'Restaurant']">Voir tout</ion-button>
+          </ion-list-header>
+          <app-restaurant *ngFor="let index of [0, 1, 2]" [restaurant]="displayedRestaurants[index].restaurant" [distance]="displayedRestaurants[index].distance" [rate]="displayedRestaurants[index].rate"></app-restaurant>
+        </ion-list>
       </ng-template>
-    
-
-      <ion-card color="pastel-red" class="banner">
-        <ion-card-header>
-          <ion-card-title>2EAT FOOD</ion-card-title>
-          <ion-card-subtitle>Découvre les boins coins proche de toi</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          Toi aussi particpe à l'aventure en proposant de nouveaux emplacement, et gagne des pourcentages de réductions.
-        </ion-card-content>
-        <ion-button color="dark">Contribuer</ion-button>
-      </ion-card>
-
-      <ion-list>
-        <ion-list-header>
-          <ion-label>
-            <h2>Parcourir les restaurants</h2>
-          </ion-label>
-          <ion-button [routerLink]="['/tabs/search', 'Restaurant']">Voir tout</ion-button>
-        </ion-list-header>
-        
-        <app-restaurant *ngFor="let val of displayedRestaurants" [restaurant]="val.restaurant" [distance]="val.distance"></app-restaurant>
-      </ion-list>
-    </ng-template>
-
-  </div>
-
+    </div>
+  </ng-template>
 </ion-content>
+
+<ion-modal>
+  <ng-template>
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <app-no-connection (onClickTry)="onClickTry($event)"></app-no-connection>
+    </ion-content>
+  </ng-template>
+</ion-modal>

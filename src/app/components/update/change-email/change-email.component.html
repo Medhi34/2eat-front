@@ -1,0 +1,24 @@
+<div class="container">
+  <ion-text class="ion-text-center">
+    <h3>{{textLanguage.TITLE}}</h3>
+  </ion-text>
+
+  <form [formGroup]="form" (ngSubmit)="confirm()">
+    <ion-item lines="none" class="input">
+      <ion-input formControlName="fullname" type="text" label="{{textLanguage.FORM.ITEM_1}}" labelPlacement="floating"></ion-input>
+    </ion-item>
+  
+    <ion-item lines="none" class="input">
+      <ion-input formControlName="phone" type="number" label="{{textLanguage.FORM.ITEM_2}}" labelPlacement="floating"></ion-input>
+    </ion-item>
+  
+    <ion-item lines="none" class="input">
+      <ion-input formControlName="email" type="email" label="{{textLanguage.FORM.ITEM_3}}" labelPlacement="floating"></ion-input>
+    </ion-item>
+  
+    <ion-button type="submit" expand="full" shape="round" [disabled]="form.invalid">
+      {{textLanguage.SUBMIT_BUTTON}}
+      <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+    </ion-button>
+  </form>
+</div>

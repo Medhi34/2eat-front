@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.2eat_e2t.app',
-  appName: '2eat-front',
+  appId: 'com.tooeat.app',
+  appName: '2EAT',
   webDir: 'www',
   server: {
     androidScheme: 'https'
