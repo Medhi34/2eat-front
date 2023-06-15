@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title size="large">Détails</ion-title>
+    <ion-title size="large">{{textLanguage.TITLE}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/search/Restaurant" icon="caret-back" color="primary"></ion-back-button>
     </ion-buttons>
@@ -29,7 +29,7 @@
     <div class="container">
       <ion-button expand="block" fill="clear" *ngIf="isContributor" (click)="presentActionSheet()">
         <ion-icon slot="end" name="pencil"></ion-icon>
-        Modifier
+        {{textLanguage.MODIFY_BUTTON}}
       </ion-button>
       <app-rating [rating]="displayedRestaurant.rate" [size]="1.3" [fixed]="true"></app-rating>
       <div class="votes">
@@ -44,7 +44,7 @@
         <ion-row>
           <ion-col size="8">
             <ion-text>
-              <h2>{{displayedRestaurant.restaurant.name}}</h2>
+              <h2>{{displayedRestaurant.restaurant.name | titlecase}}</h2>
               <small>{{displayedRestaurant.restaurant.localisation.city}}, {{displayedRestaurant.restaurant.localisation.area}}</small>
             </ion-text>
           </ion-col>
@@ -58,7 +58,7 @@
           <ion-col size="12">
             <ion-button (click)="openMealModal()">
               <ion-icon slot="start" name="restaurant"></ion-icon>
-              Voir le(s) repas
+              {{textLanguage.LIST_MEAL_BUTTON}}
             </ion-button>
           </ion-col>
         </ion-row>
@@ -67,7 +67,7 @@
       <ion-accordion-group>
         <ion-accordion value="images">
           <ion-item slot="header" color="ultra-light">
-            <ion-label>Photos</ion-label>
+            <ion-label>{{textLanguage.ACCORDION.ITEM_1}}</ion-label>
           </ion-item>
           <div class="ion-padding" slot="content">
             <swiper-container [slidesPerView]="1" [centeredSlides]="true" [pagination]="true">
@@ -81,7 +81,7 @@
         </ion-accordion>
         <ion-accordion value="comments">
           <ion-item slot="header" color="ultra-light">
-            <ion-label>Commentaires</ion-label>
+            <ion-label>{{textLanguage.ACCORDION.ITEM_2}}</ion-label>
           </ion-item>
           <div class="ion-padding" slot="content">
             <app-comments [idRestaurant]="displayedRestaurant.restaurant._id"></app-comments>
@@ -117,7 +117,7 @@
         <ion-buttons slot="end">
           <ion-button (click)="cancel('images')" color="primary">
             <ion-icon slot="end" name="close"></ion-icon>
-            Annuler
+            {{textLanguage.CANCEL_BUTTON}}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -135,7 +135,7 @@
         <ion-buttons slot="end">
           <ion-button (click)="cancel('infos')" color="primary">
             <ion-icon slot="end" name="close"></ion-icon>
-            Annuler
+            {{textLanguage.CANCEL_BUTTON}}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -153,7 +153,7 @@
         <ion-buttons slot="end">
           <ion-button (click)="cancel('localisation')" color="primary">
             <ion-icon slot="end" name="close"></ion-icon>
-            Annuler
+            {{textLanguage.CANCEL_BUTTON}}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -171,7 +171,7 @@
         <ion-buttons slot="end">
           <ion-button (click)="cancel('meals')" color="primary">
             <ion-icon slot="end" name="close"></ion-icon>
-            Annuler
+            {{textLanguage.CANCEL_BUTTON}}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>

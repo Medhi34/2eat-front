@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Détails</ion-title>
+    <ion-title>{{textLanguage.TITLE}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="tabs/search/Tous" icon="caret-back" color="primary"></ion-back-button>
     </ion-buttons>
@@ -35,16 +35,16 @@
         <ion-row>
           <ion-col size="12">
             <ion-text color="tertiary">
-              <h2 class="title">{{meal.name}}</h2>
+              <h2 class="title">{{meal.name | titlecase}}</h2>
             </ion-text>
             <ion-text color="secondary">
-              <h6>{{meal.restaurant.name}}</h6>
+              <h6>{{meal.restaurant.name | titlecase}}</h6>
               <small>{{meal.restaurant.localisation.city}}, {{meal.restaurant.localisation.area}}</small>
             </ion-text>
           </ion-col>
           <ion-col size="12">
             <ion-text color="primary" class="ion-text-end">
-              <h3 class="price">Prix : {{meal.price}} Fcfa</h3>
+              <h3 class="price">{{textLanguage.PRICE_TEXT}} : {{meal.price}} Fcfa</h3>
             </ion-text>
           </ion-col>
         </ion-row>
@@ -52,7 +52,7 @@
       <ion-list>
         <ion-list-header>
           <ion-label>
-            <h4>Accompagnement(s)</h4>
+            <h4>{{textLanguage.ACCOMPAGNEMENTS_TEXT}}</h4>
           </ion-label>
         </ion-list-header>
         <ion-item *ngFor="let accompagnement of meal.accompagnements">
@@ -64,7 +64,7 @@
   
     <footer>
       <ion-button expand="block" shape="round" (click)="onClickCommand()">
-        Commander
+        {{textLanguage.COMMAND_BUTTON}}
       </ion-button>
     </footer>
   
@@ -74,7 +74,7 @@
           <ion-toolbar>
             <ion-buttons slot="end">
               <ion-button (click)="cancel()" fill="clear">
-                Annuler
+                {{textLanguage.FORM.CANCEL_BUTTON}}
               </ion-button>
             </ion-buttons>
           </ion-toolbar>
@@ -90,23 +90,23 @@
               <ion-row>
                 <ion-col size="6">
                   <ion-item lines="none">
-                    <ion-checkbox labelPlacement="start" formControlName="hot">Plat Chaud</ion-checkbox>
+                    <ion-checkbox labelPlacement="start" formControlName="hot">{{textLanguage.FORM.ITEM_1}}</ion-checkbox>
                   </ion-item>
                 </ion-col>
                 <ion-col size="6">
                   <ion-item lines="none">
-                    <ion-checkbox labelPlacement="start" formControlName="spiced">Plat Epicé</ion-checkbox>
+                    <ion-checkbox labelPlacement="start" formControlName="spiced">{{textLanguage.FORM.ITEM_2}}</ion-checkbox>
                   </ion-item>
                 </ion-col>
               </ion-row>
             </ion-grid>
             <ion-item lines="none">
-              <ion-select label="Accompagnement" labelPlacement="floating" formControlName="accompagnement">
+              <ion-select label="{{textLanguage.FORM.ITEM_3}}" labelPlacement="floating" formControlName="accompagnement">
                 <ion-select-option *ngFor="let accompagnement of meal.accompagnements" value="{{accompagnement}}">{{accompagnement}}</ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item lines="none" class="input">
-              <ion-textarea label="Plus d'information" labelPlacement="floating" autocapitalize="true" formControlName="others"></ion-textarea>
+              <ion-textarea label="{{textLanguage.FORM.ITEM_4}}" labelPlacement="floating" autocapitalize="true" formControlName="others"></ion-textarea>
             </ion-item>
           </form>
           <ion-item lines="none">
@@ -115,7 +115,7 @@
             </ion-text>
           </ion-item>
           <ion-button shape="round" (click)="confirm()" expand="block" [disabled]="orderForm.invalid">
-            Valider
+            {{textLanguage.SUBMIT_BUTTON}}
           </ion-button>
         </ion-content>
       </ng-template>

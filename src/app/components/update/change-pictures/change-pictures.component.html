@@ -1,7 +1,7 @@
 <div class="container">
   <ion-button (click)="addPhotoToGallery()" expand="block" shape="round" color="tertiary" class="btn">
     <ion-icon slot="start" name="camera"></ion-icon>
-    Ajouter une photo
+    {{textLanguage.ADD_BUTTON}}
   </ion-button>
 
   <div class="container-images">
@@ -22,7 +22,7 @@
   </div>
 
   <ion-button (click)="confirm()" expand="block" shape="round" class="btn" [disabled]="nbImages == 0 && photoService.photos.length == 0">
-    Valider
+    {{textLanguage.SUBMIT_BUTTON}}
     <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
   </ion-button>
 </div>

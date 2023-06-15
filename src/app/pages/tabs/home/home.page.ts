@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonModal, ViewDidEnter, ViewWillLeave } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { catchError, of } from 'rxjs';
 import { DisplayedRestaurant } from 'src/app/models/RestaurantDisplayed';
 import { User } from 'src/app/models/User';
@@ -21,8 +22,9 @@ export class HomePage implements OnInit, ViewDidEnter, ViewWillLeave {
   isNotDone:boolean = true;
   isOffline = false;
   displayedRestaurants:DisplayedRestaurant[] = [];
+  textLanguage!:any
 
-  constructor(private api:ApiService, private location:GeolocalisationService) { }
+  constructor(private api:ApiService, private location:GeolocalisationService, private translate:TranslateService) { }
 
   ionViewWillLeave(): void {
     this.isNotDone = true;
@@ -30,6 +32,7 @@ export class HomePage implements OnInit, ViewDidEnter, ViewWillLeave {
   }
 
   ngOnInit() {
+    this.translate.get('HOME').subscribe((res) => this.textLanguage = res);
   }
 
   ionViewDidEnter() {

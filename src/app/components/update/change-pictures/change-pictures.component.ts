@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Image } from 'src/app/models/Image';
 import { PhotoService } from 'src/app/services/photo.service';
 
@@ -15,10 +16,12 @@ export class ChangePicturesComponent  implements OnInit {
   nbImages = 0;
 
   isLoading = false;
+  textLanguage!:any;
 
-  constructor(public photoService:PhotoService) { }
+  constructor(public photoService:PhotoService, private translate:TranslateService) { }
 
   ngOnInit() {
+    this.translate.get('CHANGE_PICTURES').subscribe((res) => this.textLanguage = res);
     this.photoService.photos = [];
     this.nbImages = this.images.size;
   }

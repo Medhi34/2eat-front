@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Meal } from 'src/app/models/Meal';
 import { ApiService } from 'src/app/services/api.service';
 import { FileService } from 'src/app/services/file.service';
@@ -16,10 +17,12 @@ export class SearchMealComponent  implements OnInit {
   @Input() displayedPage!:string; // search / restaurant / favourite
   @Input() idRes!:string;
   @Output() checkisOnline = new EventEmitter<boolean>();
+  textLanguage!:any;
 
-  constructor(private api:ApiService, private file:FileService) { }
+  constructor(private api:ApiService, private file:FileService, private translate: TranslateService) { }
 
   ngOnInit() {
+    this.translate.get('SEARCH_MEAL').subscribe((res) => this.textLanguage = res);
     switch(this.displayedPage){
       case "restaurant": {
         this.loadMealsOfRestaurant();

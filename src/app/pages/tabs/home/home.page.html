@@ -1,6 +1,6 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title class="title">2EAT</ion-title>
+    <ion-title class="title">{{textLanguage.TITLE}}</ion-title>
     <ion-buttons slot="end" *ngIf="!isNotDone">
       <app-cart-buttons *ngIf="isConnected" [userId]="user._id"></app-cart-buttons>
     </ion-buttons>
@@ -32,7 +32,7 @@
               </ng-template>
             </ion-avatar>
             <ion-label>
-              <h4>Salut</h4>
+              <h4>{{textLanguage.GREATINGS.ONLINE}}</h4>
               <h2>{{user.fullname | titlecase}}</h2>
             </ion-label>
           </ion-item>
@@ -45,28 +45,28 @@
             </ion-avatar>
             <ion-label>
               <h4>Hey</h4>
-              <h2>Connecte-toi !</h2>
+              <h2>{{textLanguage.GREATINGS.OFFLINE}}</h2>
             </ion-label>
           </ion-item>
         </ng-template>
   
         <ion-card color="pastel-red" class="banner">
           <ion-card-header>
-            <ion-card-title>2EAT FOOD</ion-card-title>
-            <ion-card-subtitle>Découvre les boins coins proche de toi</ion-card-subtitle>
+            <ion-card-title>{{textLanguage.CARD.TITLE}}</ion-card-title>
+            <ion-card-subtitle>{{textLanguage.CARD.SUBTITLE}}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            Toi aussi particpe à l'aventure en proposant de nouveaux emplacement, et gagne des pourcentages de réductions.
+            {{textLanguage.CARD.TEXT}}
           </ion-card-content>
-          <ion-button color="dark" [routerLink]="['/contributions-form']">Contribuer</ion-button>
+          <ion-button color="dark" [routerLink]="['/contributions-form']">{{textLanguage.CARD.CONTRIBUTION_BUTTON}}</ion-button>
         </ion-card>
   
         <ion-list>
           <ion-list-header>
             <ion-label>
-              <h2>Parcourir les restaurants</h2>
+              <h2>{{textLanguage.LIST_LABEL}}</h2>
             </ion-label>
-            <ion-button [routerLink]="['/tabs/search', 'Restaurant']">Voir tout</ion-button>
+            <ion-button [routerLink]="['/tabs/search', 'Restaurant']">{{textLanguage.SEE_ALL_BUTTON}}</ion-button>
           </ion-list-header>
           <app-restaurant *ngFor="let index of [0, 1, 2]" [restaurant]="displayedRestaurants[index].restaurant" [distance]="displayedRestaurants[index].distance" [rate]="displayedRestaurants[index].rate"></app-restaurant>
         </ion-list>
