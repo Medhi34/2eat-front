@@ -91,19 +91,53 @@
          "CANCEL_BUTTON": "Cancel"
      },
      "MEAL_DETAILS": {
+
+        "TITLE": "Details",
+         "PRICE_TEXT": "Price",
+         "ACCOMPAGNEMENTS_TEXT": "Possible accompaniments",
+         "COMMAND_BUTTON": "Command",
+         "FORM": {
+             "CANCEL_BUTTON": "Cancel",
+             "ITEM_1": "Hot Dish",
+             "ITEM_2": "Spicy Dish",
+             "ITEM_3": "Support",
+             "ITEM_4": "Do you have any recommendations?",
+             "SUBMIT_BUTTON": "Validate"
+         }
         
      },
      "RESTAURANT_DETAILS": {
         
+        "TITLE": "Details",
+         "MODIFY_BUTTON": "Modify",
+         "LIST_MEAL_BUTTON": "View Meal(s)",
+         "ACCORD": {
+             "ITEM_1": "Pictures",
+             "ITEM_2": "Comments"
+         },
+         "CANCEL_BUTTON": "Cancel"
      },
      "FAVORITE": {
+         "TITLE": "Favorites"
         
      },
      "HOME": {
-        
+         "TITLE": "2EAT",
+         "GREATINGS": {
+             "ONLINE": "Hi",
+             "OFFLINE": "Connect!"
+         },
+         "CARD": {
+             "TITLE": "2EAT FOOD",
+             "SUBTITLE": "Discover the good places near you",
+             "TEXT": "You too can take part in the adventure by offering new locations, and earn percentage reductions.",
+             "CONTRIBUTION_BUTTON": "Contribute"
+         },
+         "LIST_LABEL": "Browse restaurants",
+         "SEE_ALL_BUTTON": "See all"
      },
-     "SEARCH": {
-        
+     "SEARCH_MEAL": {
+         "SEARCHBAR": "Search"
      },
      "NO_CONNECT": {
          "TITLE": "You are not connected to the internet!",
