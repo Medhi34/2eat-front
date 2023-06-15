@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/restaurant-details/restaurant-details.module').then( m => m.RestaurantDetailsPageModule)
   },
   {
+    path: 'restaurant-details/:id/:userId',
+    loadChildren: () => import('./pages/restaurant-details/restaurant-details.module').then( m => m.RestaurantDetailsPageModule)
+  },
+  {
     path: 'cart',
     loadChildren: () => import('./pages/cart/cart.module').then( m => m.CartPageModule)
   },
@@ -34,6 +38,10 @@ const routes: Routes = [
   {
     path: 'meal-details/:id',
     loadChildren: () => import('./pages/meal-details/meal-details.module').then( m => m.MealDetailsPageModule)
+  },
+  {
+    path: 'contributions-form',
+    loadChildren: () => import('./pages/contributions-form/contributions-form.module').then( m => m.ContributionsFormPageModule)
   },
 ];
 

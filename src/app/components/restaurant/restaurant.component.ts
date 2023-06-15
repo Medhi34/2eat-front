@@ -1,8 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Image } from 'src/app/models/Image';
-import { Localisation } from 'src/app/models/Localisation';
-import { Restaurant } from 'src/app/models/Restaurant';
-import { GeolocalisationService } from 'src/app/services/geolocalisation.service';
 
 @Component({
   selector: 'app-restaurant',
@@ -11,13 +9,24 @@ import { GeolocalisationService } from 'src/app/services/geolocalisation.service
 })
 export class RestaurantComponent  implements OnInit {
 
-  @Input("restaurant") restaurant!:Restaurant;
+  @Input("restaurant") restaurant!:any;
   @Input("distance") distance!:number;
+  @Input("rate") rate!:number;
+  @Input("contributorId") contributorId!:string;
 
-  constructor() { }
+  imageUrl = "";
+
+  constructor(private router:Router) { }
 
   ngOnInit() {
-    this.restaurant.images = new Map<string, Image>(Object.entries(this.restaurant.images));
+    this.restaurant.images = new Map<string, Image>(Object.entries(this.restaurant.images)); 
   }
 
+  onClick(){
+    if(this.contributorId){
+      this.router.navigate(['/restaurant-details', this.restaurant._id, this.contributorId]);
+    }else{
+      this.router.navigate(['/restaurant-details', this.restaurant._id]);
+    }
+  }
 }

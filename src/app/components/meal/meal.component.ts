@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Image } from 'src/app/models/Image';
 import { Meal } from 'src/app/models/Meal';
 
@@ -10,6 +10,7 @@ import { Meal } from 'src/app/models/Meal';
 export class MealComponent  implements OnInit {
 
   @Input() meal!:Meal;
+  @Output() onChangeFavourite = new EventEmitter<any>();
 
   constructor() { }
 
@@ -18,7 +19,8 @@ export class MealComponent  implements OnInit {
   }
 
   makeFavourite(){
-    this.meal.isFavourite = this.meal.isFavourite ? false : true;
+    this.meal.isFavourite = !this.meal.isFavourite;
+    this.onChangeFavourite.emit(this.meal);
   }
 
 }

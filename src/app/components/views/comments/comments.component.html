@@ -1,10 +1,39 @@
-<ion-button id="modal-appreciation">
+<ion-button id="modal-appreciation" expand="block">
   <ion-icon slot="start" name="chatbubble-ellipses"></ion-icon>
   Laisser un commentaire
 </ion-button>
 
-<span *ngIf="!isDone then skeleton else showComments"></span>
+<ion-modal trigger="modal-appreciation" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50, 0.80, 1]">
+  <ng-template>
+    <ion-header class="ion-no-border">
+      <ion-toolbar>
+        <ion-title>Evaluation</ion-title>
+        <ion-buttons slot="end">
+        <ion-button (click)="cancel()">
+          <ion-icon slot="icon-only" name="close" color="primary"></ion-icon>
+        </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <app-rating [rating]="0" [size]="2" [position]="'evenly'" (ratingChange)="onClickRate($event)"></app-rating>
 
+      <form [formGroup]="commentForm" (ngSubmit)="confirm()">
+        <ion-item lines="none" class="input">
+          <ion-textarea label="Votre commentaire" labelPlacement="floating" autocapitalize="true" formControlName="comment"></ion-textarea>
+        </ion-item>
+        
+        <ion-button shape="round" expand="block" type="submit" [disabled]="commentForm.invalid">
+          Valider
+          <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+        </ion-button>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<span *ngIf="!isDone then skeleton else showComments"></span>
 <ng-template #skeleton>
   <app-card-skeleton></app-card-skeleton>
   <app-card-skeleton></app-card-skeleton>
@@ -12,36 +41,5 @@
 </ng-template>
 
 <ng-template #showComments>
-  <app-appreciation *ngFor="let app of appreciations" [appreciation]="app"></app-appreciation>
-
-  <ion-modal trigger="modal-appreciation" (willDismiss)="onWillDismiss($event)" [initialBreakpoint]="0.50" [breakpoints]="[0, 0.50, 0.80, 1]">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Appréciation</ion-title>
-          <ion-buttons slot="end">
-          <ion-button (click)="cancel()">
-            <ion-icon slot="icon-only" name="close"></ion-icon>
-          </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <ion-item>
-          <ion-icon slot="start" name="star"></ion-icon>
-          <ion-checkbox labelPlacement="start">Mettre une étoile</ion-checkbox>
-        </ion-item>
-
-        <ion-item>
-          <ion-icon slot="start" name="information-circle"></ion-icon>
-          <ion-textarea label="Votre commentaire" labelPlacement="floating" autocapitalize="true"></ion-textarea>
-        </ion-item>
-        
-        <ion-button shape="round" (click)="confirm()">
-          Valider
-        </ion-button>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
-
+  <app-appreciation *ngFor="let app of appreciations" [appreciation]="app" (onChange)="onChange($event)"></app-appreciation>
 </ng-template>

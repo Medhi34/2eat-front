@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-cart-buttons',
@@ -7,8 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartButtonsComponent  implements OnInit {
 
-  constructor() { }
+  @Input() userId!:string;
 
-  ngOnInit() {}
+  quantity = 0;
+
+  constructor(private api:ApiService) { }
+
+  ngOnInit() {
+    if(this.userId){
+      this.loadData();
+    }
+  }
+
+  loadData(){
+    this.api.getOrders(this.userId).subscribe((vals:any) => this.quantity = vals.length);
+  }
 
 }

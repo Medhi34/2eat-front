@@ -17,3 +17,13 @@ export interface Restaurant {
     meals: Meal[] | [] | string[],
     appreciations: Appreciation[] | [] | string[]
 }
+
+export class Restaurant implements Restaurant{
+    constructor(){
+        this.name = "";
+        this.appreciations = [];
+        this.meals = [];
+        this.nbVotes = 0;
+        this.images = new Map();
+    }
+}

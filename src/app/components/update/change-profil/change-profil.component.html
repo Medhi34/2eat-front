@@ -1,0 +1,21 @@
+<div class="container">
+  <ion-button (click)="addPhotoToGallery()" expand="block" shape="round" fill="clear" color="tertiary">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    {{textLanguage.ADD_BUTTON}}
+  </ion-button>
+
+  <div *ngIf="photoService.photos.length == 0 else photo">
+    <ion-img class="image" [src]="imageUrl"></ion-img>
+  </div>
+
+  <ng-template #photo>
+    <div>
+      <ion-img class="image" [src]="photoService.photos[0].webviewPath"></ion-img>
+    </div>
+  </ng-template>
+
+  <ion-button (click)="confirm()" expand="block" shape="round" [disabled]="photoService.photos.length == 0">
+    {{textLanguage.SUBMIT_BUTTON}}
+    <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+  </ion-button>
+</div>

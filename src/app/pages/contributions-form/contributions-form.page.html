@@ -1,0 +1,96 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" icon="caret-back" color="primary"></ion-back-button>
+    </ion-buttons>
+    <ion-progress-bar *ngIf="progress != 0" [buffer]=".3" [value]="progress"></ion-progress-bar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <span *ngIf="pageShow === 'start' then start"></span>
+  <span *ngIf="pageShow === 'part1' then part1"></span>
+  <span *ngIf="pageShow === 'part2' then part2"></span>
+  <span *ngIf="pageShow === 'part3' then part3"></span>
+  <span *ngIf="pageShow === 'final' then final"></span>
+
+  <ng-template #start>
+    <div class="container container-full flex">
+      <img src="assets/icon/contributor-join-interested.svg" alt="contributor">
+      <ion-text color="primary">
+        <h1>{{textLanguage.TITLE}}</h1>
+      </ion-text>
+      <span *ngIf="isConnected then connected else notConnected"></span>
+      <ng-template #connected>
+        <p>{{textLanguage.NEED_TIME_INFOS}}</p>
+        <ion-button expand="block" shape="round" (click)="onStart()">
+          {{textLanguage.START_BUTTON}}
+        </ion-button>
+      </ng-template>
+      <ng-template #notConnected>
+        <p>{{textLanguage.NEED_ACCOUNT_INFOS}}</p>
+        <ion-button expand="block" shape="round" [routerLink]="['/login']" >
+          {{textLanguage.LOGIN_BUTTON}}
+        </ion-button>
+      </ng-template>
+    </div>
+  </ng-template>
+
+  <ng-template #part1>
+    <app-step1-contribution (previous)="previousPage($event)" (next)="onStep1Finished($event)"></app-step1-contribution>
+  </ng-template>
+
+  <ng-template #part2>
+    <app-step2-contribution (previous)="previousPage($event)" (next)="onStep2Finished($event)"></app-step2-contribution>
+  </ng-template>
+
+  <ng-template #part3>
+    <app-step3-contribution (previous)="previousPage($event)" (next)="onStep3Finished($event)"></app-step3-contribution>
+  </ng-template>
+
+  <ng-template #final>
+    <div class="container container-full flex" *ngIf="isNotDone.final else end">
+      <ion-text color="primary" class="ion-text-center">
+        <h3>{{textLanguage.LOADING.TITLE}}</h3>
+      </ion-text>
+      <ion-list>
+        <ion-item>
+          <ion-spinner name="circular" slot="start" *ngIf="isNotDone.step1 else done1"></ion-spinner>
+          <ng-template #done1>
+            <ion-icon slot="start" name="checkmark-circle" color="secondary"></ion-icon>
+          </ng-template>
+          <ion-label>{{textLanguage.LOADING.STEP1}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-spinner name="circular" slot="start" *ngIf="isNotDone.step2 else done2"></ion-spinner>
+          <ng-template #done2>
+            <ion-icon slot="start" name="checkmark-circle" color="secondary"></ion-icon>
+          </ng-template>
+          <ion-label>{{textLanguage.LOADING.STEP2}}</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-spinner name="circular" slot="start" *ngIf="isNotDone.step3 else done3"></ion-spinner>
+          <ng-template #done3>
+            <ion-icon slot="start" name="checkmark-circle" color="secondary"></ion-icon>
+          </ng-template>
+          <ion-label>{{textLanguage.LOADING.STEP3}}</ion-label>
+        </ion-item>
+
+      </ion-list>
+    </div>
+
+    <ng-template #end>
+      <div class="container container-full flex">
+        <ion-text color="secondary" class="ion-text-center">
+          <h2>{{textLanguage.END.TITLE}}</h2>
+        </ion-text>
+        <ion-button [routerLink]="['/tabs/search/Restaurant']" expand="block" shape="round">
+          {{textLanguage.END.LIST_BUTTON}}
+        </ion-button>
+      </div>
+    </ng-template>
+  </ng-template>
+
+</ion-content>

@@ -3,3 +3,26 @@ ion-button.popup{
     top: -65px;
     right: 5px;
 }
+
+ion-card-title{
+    padding-left: .5rem;
+}
+
+ion-card-content{
+    padding-left: 1.5rem
+}
+
+ion-modal{
+    ion-button{
+        --padding-top: 1.5rem;
+        --padding-bottom: 1.5rem;
+    }
+    
+    .input{
+        border: 1px solid var(--ion-color-medium);
+        padding: 0.5rem;
+        height: 20vh;
+        border-radius: 0.5rem;
+        margin: 1rem 0px;
+    }
+}

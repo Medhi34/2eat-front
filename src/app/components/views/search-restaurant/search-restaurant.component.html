@@ -21,10 +21,12 @@
             </ion-item>
             <ion-item *ngIf="advancedSearchSelected === 'category'">
               <ion-select value="category" placeholder="Selectionnez" [(ngModel)]="category">
-                <ion-select-option value="Fast-food">Fast-Food</ion-select-option>
-                <ion-select-option value="Street-food">Street-Food</ion-select-option>
+                <ion-select-option value="Street-food">Street-food</ion-select-option>
+                <ion-select-option value="Fast-food">Fast-food</ion-select-option>
                 <ion-select-option value="Caféteria">Caféteria</ion-select-option>
-                <ion-select-option value="Restaurant classique">Restaurant Classique</ion-select-option>
+                <ion-select-option value="Café-Resto">Café-Resto</ion-select-option>
+                <ion-select-option value="Restaurant Classique">Restaurant Classique</ion-select-option>
+                <ion-select-option value="Cuisine Traditionnelle">Cuisine Traditionnelle</ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item>
@@ -39,6 +41,6 @@
       </ion-accordion>
     </ion-accordion-group>
   
-    <app-restaurant *ngFor="let val of results" [restaurant]="val.restaurant" [distance]="val.distance"></app-restaurant>
+    <app-restaurant *ngFor="let val of results" [restaurant]="val.restaurant" [distance]="val.distance" [rate]="val.rate"></app-restaurant>
   </ng-template>
 </div>

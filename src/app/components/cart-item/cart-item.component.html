@@ -1,27 +1,33 @@
 <ion-card>
   <div class="left">
-    <img src="/assets/img/card-media.png" alt="Meal picture">
+    <img src="{{order.meal.images.values().next().value.url}}" alt="Meal picture">
   </div>
   <div class="right">
     <ion-card-header>
-      <ion-card-subtitle>Nom du repas</ion-card-subtitle>
+      <ion-card-subtitle>{{order.meal.name}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <h2>XXXX Fcfa</h2>
-      <p>Servi chaud/Froid</p>
-      <p>Plat pimenté</p>
+      <h2>{{price}} Fcfa</h2>
+      <p *ngIf="order.hot else cold">{{textLanguage.HOT_MEAL}}</p>
+      <ng-template #cold>
+        <p>{{textLanguage.COLD_MEAL}}</p>
+      </ng-template>
+      <p *ngIf="order.spiced else notSpiced">{{textLanguage.SPICED_MEAL}}</p>
+      <ng-template #notSpiced>
+        <p>{{textLanguage.NOTSPICED_MEAL}}</p>
+      </ng-template>
     </ion-card-content>
     <ion-grid fixed class="ion-no-margin ion-no-padding">
       <ion-row>
         <ion-col size="8">
           <div class="commande">
-            <button class="moins">-</button>
-            <span class="quantite">1</span>
-            <button class="plus">+</button>
+            <button class="moins" (click)="removeQuantity()">-</button>
+            <span class="quantite">{{order.quantity}} </span>
+            <button class="plus" (click)="addQuantity()">+</button>
           </div>
         </ion-col>
         <ion-col size="4">
-          <ion-button shape="round" fill="clear" class="btn-close">
+          <ion-button shape="round" fill="clear" class="btn-close" (click)="onClickDelete()">
             <ion-icon slot="icon-only" name="trash" color="primary"></ion-icon>
           </ion-button>
         </ion-col>

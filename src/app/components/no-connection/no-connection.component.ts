@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-no-connection',
@@ -7,8 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoConnectionComponent  implements OnInit {
 
-  constructor() { }
+  @Output() onClickTry = new EventEmitter<string>();
 
-  ngOnInit() {}
+  textLanguage!:any;
+
+  constructor(private translate: TranslateService) { }
+
+  ngOnInit() {
+    this.translate.get('NO_CONNECT').subscribe((res) => this.textLanguage = res);
+  }
+
+  onClick(){
+    this.onClickTry.emit("retry");
+  }
 
 }

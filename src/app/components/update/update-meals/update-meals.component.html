@@ -1,0 +1,82 @@
+<div class="container">
+  <ion-searchbar placeholder="Rechercher" (ionInput)="handleInput($event)" [debounce]="1000" mode="ios" animated="true"></ion-searchbar>
+
+  <ion-button expand="block" shape="round" id="form-modal" (click)="openForm()">
+    <ion-icon slot="start" name="fast-food"></ion-icon>
+    Ajouter un repas
+  </ion-button>
+
+  <div *ngIf="!isDone else showMeals">
+    <app-card-skeleton></app-card-skeleton>
+    <app-card-skeleton></app-card-skeleton>
+    <app-card-skeleton></app-card-skeleton>
+  </div>
+
+  <ng-template #showMeals>
+    <div class="container-pad">
+      <app-meal-form *ngFor="let item of meals | keyvalue" [meal]="item.value" [isMeal]="true" (delete)="onDelete($event)"></app-meal-form>
+    </div>
+  </ng-template>
+</div>
+
+<ion-modal #formModal>
+  <ng-template>
+    <ion-header [translucent]="true" class="ion-no-border">
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="cancel()" color="primary">
+            <ion-icon slot="end" name="close"></ion-icon>
+            Annuler
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="container">
+        <ion-text class="ion-text-center">
+          <h4>Ajouter un nouveau repas</h4>
+        </ion-text>
+
+        <ion-button (click)="addMealPhotoToGallery()" expand="block" shape="round" id="photo">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          Ajouter une photo
+        </ion-button>
+
+        <swiper-container [slidesPerView]="1.2" [centeredSlides]="true" *ngIf="photoService.photos.length != 0 else empty">
+          <swiper-slide *ngFor="let item of photoService.photos">
+            <ion-card>
+              <img src="{{item.webviewPath}}" alt="Image">
+            </ion-card>
+          </swiper-slide>
+        </swiper-container>
+
+        <ng-template #empty>
+          <div class="img empty">
+            Aucune image
+          </div>
+        </ng-template>
+
+        <form [formGroup]="mealForm" (ngSubmit)="confirmAdd()" style="margin: 1rem 0">
+          <ion-item lines="none">
+            <ion-icon slot="start" name="fast-food-outline"></ion-icon>
+            <ion-input type="text" placeholder="Nom du repas" formControlName="name"></ion-input>
+          </ion-item>
+  
+          <ion-item lines="none">
+            <ion-icon slot="start" name="cash-outline"></ion-icon>
+            <ion-input type="number" placeholder="Prix" formControlName="price"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-textarea formControlName="accompagnements" label="Ajouter des accompagnements" labelPlacement="stacked" helperText="Séparer les accompagnements par des virgules (,)"></ion-textarea>
+          </ion-item>
+
+          <ion-button class="validate" strong="true" type="submit" expand="full" shape="round" [disabled]="mealForm.invalid || photoService.photos.length == 0">
+            Confirmer
+            <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+          </ion-button>
+        </form>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/" icon="caret-back" color="tertiary" text="Retour"></ion-back-button>
+      <ion-back-button defaultHref="/" icon="caret-back" color="tertiary" text="{{textLanguage.BACK_BUTTON}}"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -11,25 +11,25 @@
     <header>
       <img src="assets/icon/avatar.svg" alt="Logo">
       <ion-text>
-        <h4>2EAT / Connexion</h4>
-        <small>Connectez-vous à votre compte</small>
+        <h4>{{textLanguage.TITLE}}</h4>
+        <small>{{textLanguage.SUBTITLE}}</small>
       </ion-text>
     </header>
     <div class="main">
       <form [formGroup]="loginForm" (ngSubmit)="onSignIn()" novalidate>
         <ion-item lines="none">
-          <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+          <ion-input type="email" placeholder="{{textLanguage.FORM.ITEM_1}}" formControlName="email"></ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-input type="password" placeholder="Mot de passe" clearOnEdit="true" formControlName="password"></ion-input>
+          <ion-input type="password" placeholder="{{textLanguage.FORM.ITEM_2}}" clearOnEdit="true" formControlName="password"></ion-input>
         </ion-item>
-        <span class="errorMsg" *ngIf="msgError != ''">{{msgError}}</span>
+        <span class="errorMsg" *ngIf="msgError != '' ">{{msgError}}</span>
         <ion-button expand="full" color="secondary" shape="round" strong="true" type="submit" [disabled]="!loginForm.valid">
-          Connexion
-          <ion-spinner name="circular" *ngIf="isSubmitedLogin"></ion-spinner>
+          {{textLanguage.FORM.SUBMIT_BUTTON}}
+          <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
         </ion-button>
         <ion-text>
-          <p>Pas encore de compte ? <a id="open-modal">S'inscrire</a></p>
+          <p>{{textLanguage.FORM.NEED_ACCOUNT.PART1}}<a id="open-modal">{{textLanguage.FORM.NEED_ACCOUNT.PART2}}</a></p>
         </ion-text>
       </form>
     </div>
@@ -43,54 +43,13 @@
           <ion-buttons slot="end">
             <ion-button (click)="cancel()" color="primary">
               <ion-icon slot="end" name="close"></ion-icon>
-              Annuler
+              {{textLanguage.CANCEL_BUTTON}}
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <div class="container">
-          <div class="photo-container">
-            <ion-button (click)="addPhotoToGallery()">
-              <ion-icon slot="icon-only" name="camera"></ion-icon>
-            </ion-button>
-            <ion-img *ngIf="hasLoadPicture" [src]="photoService.photos[0].webviewPath"></ion-img>
-          </div>
-          
-          <ion-text>
-            <h4>2EAT / Inscription</h4>
-            <small>Crée un compte et bénéficie de toutes les fonctionnalités</small>
-          </ion-text>
-
-          <span class="errorMsg" *ngIf="error != ''">{{error}}</span>
-  
-          <form [formGroup]="registerForm" (ngSubmit)="onSignUp()">
-            <ion-item lines="none">
-              <ion-icon slot="start" name="person-outline"></ion-icon>
-              <ion-input type="text" placeholder="Nom complet" formControlName="fullname" helperText="Prénom & Nom"></ion-input>
-            </ion-item>
-    
-            <ion-item lines="none">
-              <ion-icon slot="start" name="mail-outline"></ion-icon>
-              <ion-input type="email" placeholder="Email" formControlName="email" helperText="exemple: xyz@exemple.com"></ion-input>
-            </ion-item>
-    
-            <ion-item lines="none">
-              <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-              <ion-input type="password" placeholder="Mot de passe" clearOnEdit="true" formControlName="password" helperText="Minimum 8 caractères"></ion-input>
-            </ion-item>
-    
-            <ion-item lines="none">
-              <ion-icon slot="start" name="call-outline"></ion-icon>
-              <ion-input type="number" placeholder="Téléphone" formControlName="phone" helperText="Ex: 699 00 00 90"></ion-input>
-            </ion-item>
-            
-            <ion-button class="validate" strong="true" type="submit" expand="full" shape="round" [disabled]="!registerForm.valid">
-              Confirmer
-              <ion-spinner name="circular" *ngIf="isSubmitedRegister"></ion-spinner>
-            </ion-button>
-          </form>
-        </div>
+        <app-account-form (onConfirm)="signUp($event)"></app-account-form>
       </ion-content>
     </ng-template>
 </ion-modal>

@@ -1,0 +1,26 @@
+<div class="container" style="padding: 0 1.5rem;">
+  <form [formGroup]="restaurantForm" (ngSubmit)="onSubmit()">
+    <ion-item class="input" lines="none">
+      <ion-icon name="storefront-outline" slot="start"></ion-icon>
+      <ion-input formControlName="name" type="text" label="Nom du restaurant" labelPlacement="floating"></ion-input>
+    </ion-item>
+    <ion-item class="input" lines="none">
+      <ion-icon name="call-outline" slot="start"></ion-icon>
+      <ion-input formControlName="phone" type="number" label="Numéro de téléphone" labelPlacement="floating"></ion-input>
+    </ion-item>
+    <ion-item lines="none" class="input">
+      <ion-select formControlName="categories" multiple="true" label="Choisissez des catégories" labelPlacement="floating">
+        <ion-select-option value="Street-food">Street-food</ion-select-option>
+        <ion-select-option value="Fast-food">Fast-food</ion-select-option>
+        <ion-select-option value="Caféteria">Caféteria</ion-select-option>
+        <ion-select-option value="Café-Resto">Café-Resto</ion-select-option>
+        <ion-select-option value="Restaurant Classique">Restaurant Classique</ion-select-option>
+        <ion-select-option value="Cuisine Traditionnelle">Cuisine Traditionnelle</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-button expand="block" shape="round" type="submit" [disabled]="restaurantForm.invalid">
+      Valider
+      <ion-spinner name="circular" *ngIf="isLoading"></ion-spinner>
+    </ion-button>
+  </form>
+</div>

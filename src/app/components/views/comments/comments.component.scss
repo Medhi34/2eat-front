@@ -1,3 +1,14 @@
-ion-button{
-    width: 100%;
+ion-modal{
+    ion-button{
+        --padding-top: 1.5rem;
+        --padding-bottom: 1.5rem;
+    }
+    
+    .input{
+        border: 1px solid var(--ion-color-medium);
+        padding: 0.5rem;
+        height: 20vh;
+        border-radius: 0.5rem;
+        margin: 1rem 0px;
+    }
 }

@@ -3,9 +3,15 @@ import { User } from "./User";
 
 export interface Appreciation {
     _id: string,
-    isVoted: boolean,
+    note: number,
     review: string,
     date: Date,
     user: User,
     restaurant: Restaurant | string
+}
+
+export class Appreciation implements Appreciation{
+    constructor(){
+        this.review = "";
+    }
 }

@@ -37,6 +37,10 @@ capacitor-google-map{
     width: 100vw;
     height: 50vh;
     display: inline-block;
+    &.full{
+        height: 75vh;
+        width: 100%;
+    }
 }
 
 .votes{
@@ -64,5 +68,5 @@ ion-grid{
 
 ion-modal{
     --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --border-radius: .5rem;
 }
+

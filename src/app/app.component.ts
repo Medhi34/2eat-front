@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { register } from 'swiper/element';
+import { FileService } from './services/file.service';
 // register Swiper custom elements
 register();
 
@@ -10,8 +11,9 @@ register();
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(translate: TranslateService) {
+  constructor(translate: TranslateService, file:FileService) {
     translate.setDefaultLang("fr");
     translate.use("fr");
+    file.initFavourite();
   }
 }

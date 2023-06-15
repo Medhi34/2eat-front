@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Image } from 'src/app/models/Image';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Meal } from 'src/app/models/Meal';
 import { ApiService } from 'src/app/services/api.service';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-search-meal',
@@ -15,29 +15,77 @@ export class SearchMealComponent  implements OnInit {
   isDone:boolean = false;
   @Input() displayedPage!:string; // search / restaurant / favourite
   @Input() idRes!:string;
+  @Output() checkisOnline = new EventEmitter<boolean>();
 
-  constructor(private api:ApiService) { }
+  constructor(private api:ApiService, private file:FileService) { }
 
   ngOnInit() {
     switch(this.displayedPage){
       case "restaurant": {
-        this.api.getMealsOfRestaurant(this.idRes).subscribe((vals:any) => {
-          this.meals = vals;
-          this.results = this.meals;
-          this.isDone = true;
-        })
+        this.loadMealsOfRestaurant();
         break;
       }
       case "favourite": {
+        this.loadFavouritesMeals();
         break;
       }
       default: {
-        this.api.getAllMeals().subscribe(vals => {
-          this.meals = vals;
-          this.results = this.meals;          
-          this.isDone = true;
-        });
+        this.loadAllMeals();
       }
+    }
+  }
+
+  loadMealsOfRestaurant(){
+    this.api.getMealsOfRestaurant(this.idRes).subscribe((vals:any) => {
+      for(let meal of vals){
+        this.file.isFavourite(meal._id)
+        .then(bool => {
+          if(bool){
+            meal.isFavourite = true;
+          }
+        })
+        this.meals.unshift(meal);
+      }
+      this.results = this.meals;
+      this.isDone = true;
+    });
+  }
+
+  loadFavouritesMeals(){
+    this.api.getAllMeals().subscribe(vals => {
+      for(let meal of vals){
+        this.file.isFavourite(meal._id)
+        .then(bool => {
+          if(bool){
+            meal.isFavourite = true;
+            this.meals.unshift(meal);
+          }
+        })
+      }
+      this.results = this.meals;
+      this.isDone = true;
+    });
+  }
+
+  loadAllMeals(){
+    this.api.getAllMeals().subscribe(vals => {
+      for(let meal of vals){
+        this.file.isFavourite(meal._id)
+        .then(bool => {
+          if(bool){
+            meal.isFavourite = true;
+          }
+        })
+        this.meals.unshift(meal);
+      }
+      this.results = this.meals;          
+      this.isDone = true;
+    });
+  }
+
+  checkConnectivity(){
+    if(!this.isDone){
+      this.checkisOnline.emit(false);
     }
   }
 
@@ -46,4 +94,11 @@ export class SearchMealComponent  implements OnInit {
     this.results = this.meals.filter((d) => d.name.toLowerCase().indexOf(query) > -1);
   }
 
+  changeFavourite(meal:any){
+    if(meal.isFavourite){
+      this.file.addFavourite(meal._id)
+    }else{
+      this.file.removeFavourite(meal._id);
+    }
+  }
 }

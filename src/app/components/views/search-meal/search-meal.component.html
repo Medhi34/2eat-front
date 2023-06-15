@@ -9,6 +9,6 @@
   </ng-template>
 
   <ng-template #showMeals>
-    <app-meal *ngFor="let meal of results" [meal]="meal"></app-meal>
+    <app-meal *ngFor="let meal of results" [meal]="meal" (onChangeFavourite)="changeFavourite($event)"></app-meal>
   </ng-template>
 </div>

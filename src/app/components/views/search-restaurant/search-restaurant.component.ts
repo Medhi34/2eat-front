@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DisplayedRestaurant } from 'src/app/models/RestaurantDisplayed';
 import { ApiService } from 'src/app/services/api.service';
 import { GeolocalisationService } from 'src/app/services/geolocalisation.service';
@@ -16,6 +16,7 @@ export class SearchRestaurantComponent  implements OnInit {
 
   @Input("category")category!:string;
   @Input("city")city!:string;
+  @Output() checkisOnline = new EventEmitter<boolean>();
 
   advancedSearchSelected:string = "";
 
@@ -24,22 +25,37 @@ export class SearchRestaurantComponent  implements OnInit {
   ngOnInit() {
     const userToken = JSON.parse(localStorage.getItem("userToken") || "null");
     if(userToken != null){
-      this.api.getUserById(userToken.userId).subscribe((val:any) => {
-        this.api.getAllRestaurants(val.localisation.latitude, val.localisation.longitude).subscribe((vals) => {
-          this.displayedRestaurants = vals;
-          this.results = this.displayedRestaurants;
-          this.isDone = true;
-        });
-      })
+      this.loadDataForUserOnline(userToken);
     }else{
-      this.location.getCurrentPosition()
-      .then(coords => {
-        this.api.getAllRestaurants(coords.latitude, coords.longitude).subscribe((vals) => {
-          this.displayedRestaurants = vals;
-          this.results = this.displayedRestaurants;
-          this.isDone = true;
-        });
+      this.loadDataForUserOffline();
+    }
+    setTimeout(() => { this.checkConnectivity() }, 5000);
+  }
+
+  loadDataForUserOnline(userToken:any){
+    this.api.getUserById(userToken.userId).subscribe((val:any) => {
+      this.api.getAllRestaurants(val.localisation.latitude, val.localisation.longitude).subscribe((vals) => {
+        this.displayedRestaurants = vals;
+        this.results = this.displayedRestaurants;
+        this.isDone = true;
       });
+    });
+  }
+
+  loadDataForUserOffline(){
+    this.location.getCurrentPosition()
+    .then(coords => {
+      this.api.getAllRestaurants(coords.latitude, coords.longitude).subscribe((vals) => {
+        this.displayedRestaurants = vals;
+        this.results = this.displayedRestaurants;
+        this.isDone = true;
+      });
+    });
+  }
+
+  checkConnectivity(){
+    if(!this.isDone){
+      this.checkisOnline.emit(false);
     }
   }
 

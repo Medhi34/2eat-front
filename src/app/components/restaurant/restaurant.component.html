@@ -1,4 +1,4 @@
-<ion-card [routerLink]="['/restaurant-details', restaurant._id]" color="primary">
+<ion-card (click)="onClick()" color="primary">
   <img alt="Image restaurant" src="{{restaurant.images.values().next().value.url}}" />
   <ion-card-content>
     <ion-grid fixed>
@@ -6,7 +6,7 @@
         <ion-col size="8">
           <ion-row>
             <ion-col size="12">
-              <h2>{{restaurant.name}}</h2>
+              <h2>{{restaurant.name | titlecase}}</h2>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -18,12 +18,12 @@
         <ion-col size="4">
           <ion-row>
             <ion-col size="12">
-              <ion-badge color="tertiary" mode="ios">{{restaurant.nbVotes}} vote(s)</ion-badge>
+              <app-rating [rating]="rate" [size]="1.3" [fixed]="true"></app-rating>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="12">
-              <ion-button fill="clear" size="small" color="medium">
+              <ion-button fill="clear" size="small" color="light">
                 <ion-icon slot="start" name="location"></ion-icon>
                 {{distance | number:'1.0-1'}} km
               </ion-button>
